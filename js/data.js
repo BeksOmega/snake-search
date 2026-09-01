@@ -3,6 +3,37 @@
  * Contains comprehensive mock datasets for Austin & Central Texas reptiles.
  */
 
+export function getVerificationBadgeHtml(status, compact = false) {
+  const normStatus = (status || 'unverified').toLowerCase();
+  let label = 'Verified';
+  let icon = 'verified';
+  let bgClass = 'bg-emerald-100 text-emerald-800 border-emerald-300';
+
+  if (normStatus === 'verified' || normStatus === 'peer_reviewed' || normStatus === 'research_grade') {
+    label = 'Verified';
+    icon = 'verified';
+    bgClass = 'bg-emerald-100 text-emerald-800 border-emerald-300';
+  } else if (normStatus === 'community_verified' || normStatus === 'community_confirmed') {
+    label = 'Community Verified';
+    icon = 'groups';
+    bgClass = 'bg-sky-100 text-sky-800 border-sky-300';
+  } else {
+    label = 'Unverified Log';
+    icon = 'help_outline';
+    bgClass = 'bg-slate-100 text-slate-700 border-slate-300';
+  }
+
+  if (compact) {
+    return `<span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] font-bold border ${bgClass} whitespace-nowrap shrink-0">
+      <span class="material-symbols-outlined text-[11px] leading-none">${icon}</span> ${label}
+    </span>`;
+  }
+
+  return `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold border ${bgClass} whitespace-nowrap shrink-0">
+    <span class="material-symbols-outlined text-[14px] leading-none">${icon}</span> ${label}
+  </span>`;
+}
+
 export const SPECIES_DATA = [
   {
     id: 'eastern-garter',
@@ -12,6 +43,9 @@ export const SPECIES_DATA = [
     familyName: 'Water & Garter Snakes',
     dangerLevel: 'harmless',
     safetyBadge: '🌿 Harmless',
+    verificationStatus: 'verified',
+    citationUrl: 'https://tpwd.texas.gov/huntwild/wild/species/garter/',
+    citationSource: 'Texas Parks & Wildlife Department',
     percentage: 28,
     sightingCount: 95,
     habitats: ['creek', 'rocks', 'canopy'],
@@ -45,6 +79,9 @@ export const SPECIES_DATA = [
     familyName: 'Rat & King Snakes',
     dangerLevel: 'gentle',
     safetyBadge: '🌿 Gentle Glider',
+    verificationStatus: 'verified',
+    citationUrl: 'https://herpsoftexas.org/content/western-ratsnake',
+    citationSource: 'Herps of Texas Field Guide',
     percentage: 22,
     sightingCount: 75,
     habitats: ['canopy', 'rocks'],
@@ -78,6 +115,9 @@ export const SPECIES_DATA = [
     familyName: 'Water & Garter Snakes',
     dangerLevel: 'harmless',
     safetyBadge: '🌿 Harmless Swimmer',
+    verificationStatus: 'verified',
+    citationUrl: 'https://tpwd.texas.gov/huntwild/wild/species/water-snake/',
+    citationSource: 'Texas Parks & Wildlife Department',
     percentage: 18,
     sightingCount: 61,
     habitats: ['creek'],
@@ -111,6 +151,9 @@ export const SPECIES_DATA = [
     familyName: 'Tiny Bug Hunters',
     dangerLevel: 'harmless',
     safetyBadge: '🌿 Insect Eater',
+    verificationStatus: 'verified',
+    citationUrl: 'https://herpsoftexas.org/content/rough-greensnake',
+    citationSource: 'Herps of Texas Field Guide',
     percentage: 12,
     sightingCount: 41,
     habitats: ['canopy', 'creek'],
@@ -144,6 +187,9 @@ export const SPECIES_DATA = [
     familyName: 'Pit Vipers & Venomous',
     dangerLevel: 'venomous',
     safetyBadge: '⚠️ Caution: Venomous',
+    verificationStatus: 'verified',
+    citationUrl: 'https://tpwd.texas.gov/education/hunter-education/online-course/wildlife-conservation/venomous-snakes',
+    citationSource: 'TPWD Wildlife Conservation Guide',
     percentage: 7,
     sightingCount: 24,
     habitats: ['rocks', 'leaf_litter'],
@@ -177,6 +223,9 @@ export const SPECIES_DATA = [
     familyName: 'Rat & King Snakes',
     dangerLevel: 'harmless',
     safetyBadge: '🌿 Nature Protector',
+    verificationStatus: 'verified',
+    citationUrl: 'https://herpsoftexas.org/content/speckled-kingsnake',
+    citationSource: 'Herps of Texas Field Guide',
     percentage: 8,
     sightingCount: 27,
     habitats: ['rocks', 'leaf_litter'],
@@ -210,6 +259,9 @@ export const SPECIES_DATA = [
     familyName: 'Tiny Bug Hunters',
     dangerLevel: 'harmless',
     safetyBadge: '🌿 Tiny Secret Keeper',
+    verificationStatus: 'verified',
+    citationUrl: 'https://herpsoftexas.org/content/ring-necked-snake',
+    citationSource: 'Herps of Texas Field Guide',
     percentage: 6,
     sightingCount: 20,
     habitats: ['leaf_litter', 'rocks'],
@@ -243,6 +295,9 @@ export const SPECIES_DATA = [
     familyName: 'Pit Vipers & Venomous',
     dangerLevel: 'venomous',
     safetyBadge: '⚠️ Caution: Venomous',
+    verificationStatus: 'verified',
+    citationUrl: 'https://tpwd.texas.gov/education/hunter-education/online-course/wildlife-conservation/venomous-snakes',
+    citationSource: 'TPWD Wildlife Conservation Guide',
     percentage: 3,
     sightingCount: 10,
     habitats: ['creek'],
@@ -276,6 +331,9 @@ export const SPECIES_DATA = [
     familyName: 'Pit Vipers & Venomous',
     dangerLevel: 'venomous',
     safetyBadge: '⚠️ Caution: Venomous',
+    verificationStatus: 'verified',
+    citationUrl: 'https://tpwd.texas.gov/education/hunter-education/online-course/wildlife-conservation/venomous-snakes',
+    citationSource: 'TPWD Wildlife Conservation Guide',
     percentage: 2,
     sightingCount: 7,
     habitats: ['leaf_litter', 'rocks'],
@@ -309,6 +367,9 @@ export const SPECIES_DATA = [
     familyName: 'Water & Garter Snakes',
     dangerLevel: 'harmless',
     safetyBadge: '🌿 Agile Speedster',
+    verificationStatus: 'verified',
+    citationUrl: 'https://herpsoftexas.org/content/western-ribbonsnake',
+    citationSource: 'Herps of Texas Field Guide',
     percentage: 11,
     sightingCount: 38,
     habitats: ['creek', 'canopy'],
@@ -431,27 +492,42 @@ export const DETECTIVE_TIPS = [
   {
     id: 1,
     title: 'Detective Tip #1',
-    text: 'Reptiles are cold-blooded! On cloudy days, check dry limestone rocks near Twin Falls where stored heat keeps them cozy.'
+    text: 'Reptiles are cold-blooded! On cloudy days, check dry limestone rocks near Twin Falls where stored heat keeps them cozy.',
+    verificationStatus: 'verified',
+    citationUrl: 'https://tpwd.texas.gov/education/hunter-education/online-course/wildlife-conservation/reptiles',
+    citationSource: 'Texas Parks & Wildlife Education'
   },
   {
     id: 2,
     title: 'Detective Tip #2',
-    text: 'Look up! Rat snakes are supreme climbers. Scan horizontal live oak branches about 6-10 feet off the ground for gentle gliders.'
+    text: 'Look up! Rat snakes are supreme climbers. Scan horizontal live oak branches about 6-10 feet off the ground for gentle gliders.',
+    verificationStatus: 'verified',
+    citationUrl: 'https://herpsoftexas.org/content/western-ratsnake',
+    citationSource: 'Herps of Texas Field Guide'
   },
   {
     id: 3,
     title: 'Detective Tip #3',
-    text: 'Keep 6 feet of safety space! Use the "Rule of Thumb": extend your thumb at arm\'s length; if it doesn\'t cover the snake, take 3 steps back.'
+    text: 'Keep 6 feet of safety space! Use the "Rule of Thumb": extend your thumb at arm\'s length; if it doesn\'t cover the snake, take 3 steps back.',
+    verificationStatus: 'verified',
+    citationUrl: 'https://www.nps.gov/articles/snake-safety.htm',
+    citationSource: 'National Park Service Safety Guide'
   },
   {
     id: 4,
     title: 'Detective Tip #4',
-    text: 'Listen for rustling leaves! Tiny ring-necked and rough green snakes make soft whispering sounds when foraging for crickets.'
+    text: 'Listen for rustling leaves! Tiny ring-necked and rough green snakes make soft whispering sounds when foraging for crickets.',
+    verificationStatus: 'verified',
+    citationUrl: 'https://herpsoftexas.org',
+    citationSource: 'Herps of Texas Field Guide'
   },
   {
     id: 5,
     title: 'Detective Tip #5',
-    text: 'Check the pupils! Harmless colubrids have round friendly pupils like puppies. Pit vipers have vertical cat-eye slits in daylight.'
+    text: 'Check the pupils! Harmless colubrids have round friendly pupils like puppies. Pit vipers have vertical cat-eye slits in daylight.',
+    verificationStatus: 'verified',
+    citationUrl: 'https://tpwd.texas.gov/education/hunter-education/online-course/wildlife-conservation/venomous-snakes',
+    citationSource: 'TPWD Wildlife Conservation Guide'
   }
 ];
 
@@ -510,7 +586,10 @@ export const SAMPLE_LOGS = [
     habitat: 'creek',
     notes: 'Saw it basking on a wet boulder near the water edge. Slithered smoothly into the weeds when hikers walked by!',
     photoUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuByVUtxIByBunqSKbbi1QnMk_--moKvCoH__Mp123ZSdxAyXNum0arkTJN33j3QlqU2a1KUk2y7J-J7HlDMUdl2F3_kXEds-P4D5gWEOQi9Bged4QEbaKSiHw7rxaQTD1TiWIqpC4_6pSQglwv08IX6gEeqMa3XuyNEkzUbXkXLtgFabezeXbmcqKY6u3HQod8JVZ19J3fohIHtfauHYA6_hISD6tN9GzquGwzad2zt2_t1IeqqxL3UuA',
-    xpEarned: 50
+    xpEarned: 50,
+    verificationStatus: 'community_verified',
+    citationUrl: 'https://www.inaturalist.org/observations/12345678',
+    citationSource: 'iNaturalist Research Grade Record'
   },
   {
     id: 'log-2',
@@ -521,7 +600,10 @@ export const SAMPLE_LOGS = [
     habitat: 'canopy',
     notes: 'Big beautiful rat snake curled along a low oak branch about 7 feet up. Completely calm, just resting in the shade.',
     photoUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAMwhrUHi_uPkwLPrB5g6pwO02U4IRmXFjCJ8nNh_zKS2z3BeMT6mLuUdYqpN6eabZ2ecLxxgW_s1tyvK9mELCb0mpqEdxjFUX3_4go3KFLw26gC6f7hVtJhMkiy1o6QdCsQt8hdFmoC2qZIzB5ilWcpOCo-BzobImfvZe6B0z1eqCMpWCzqPu0avwfG5ADSWXL-A_2UAjusT5wJM6QS-NATNQtg1Ko47JaCqBGhZKCtqAf3dPbVtUyBg',
-    xpEarned: 50
+    xpEarned: 50,
+    verificationStatus: 'community_verified',
+    citationUrl: 'https://www.inaturalist.org/observations/12345679',
+    citationSource: 'iNaturalist Research Grade Record'
   },
   {
     id: 'log-3',
@@ -532,7 +614,10 @@ export const SAMPLE_LOGS = [
     habitat: 'canopy',
     notes: 'Amazing bright green color! It looked exactly like a leafy vine. It was eating a green caterpillar.',
     photoUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCSKyhOGC5ZgqN3W4h9V0B2dFUvsqvdx8t4Cyys7z3sRYKUUQddOHc8yETSxSeO2gxFBc6stKbA7_vKvLv6Ejyi1BZEsciym0kTkvd9EBMiaq9jRZmLQbqMEJz0slTpacF9_55OrGvdznwdsNCN7ZZlOqHfeJeUDR3K_BAwOiPu_1cydM7QzikWRsyzNp04i1l7-RyiaDz9WNICUbNW_ppIoT6ENP5Y0_lozVJe0dNN08EUsU-Am9v3Yg',
-    xpEarned: 50
+    xpEarned: 50,
+    verificationStatus: 'community_verified',
+    citationUrl: 'https://www.inaturalist.org/observations/12345680',
+    citationSource: 'iNaturalist Research Grade Record'
   }
 ];
 

@@ -3,6 +3,8 @@
  * Connects the map view directly to the iNaturalist API for real-time species counts & sightings.
  */
 
+import { getVerificationBadgeHtml } from './data.js';
+
 // Venomous snake check (Viperidae: 30667, Elapidae: 30403)
 export function isVenomousTaxon(taxon) {
   if (!taxon) return false;
@@ -492,6 +494,7 @@ export class SnakeMapController {
       const badgeHtml = venomous
         ? `<span class="bg-secondary text-on-secondary font-label-sm text-label-sm px-2 py-0.5 rounded-full flex items-center gap-1 font-bold"><span class="material-symbols-outlined text-[14px]">warning</span> Caution: Venomous</span>`
         : `<span class="bg-surface-container text-primary font-label-sm text-label-sm px-2 py-0.5 rounded-full flex items-center gap-1 font-bold"><span class="material-symbols-outlined text-[14px]">eco</span> 100% Harmless</span>`;
+      const verBadge = getVerificationBadgeHtml('verified', true);
 
       const behaviorNote = venomous
         ? `Observe from at least 6 feet away • Keep pets on leash`
@@ -515,6 +518,7 @@ export class SnakeMapController {
               <span class="font-body-sm text-body-sm text-on-surface-variant italic truncate">${sciName}</span>
               <div class="flex flex-wrap items-center gap-1 mt-1">
                 ${badgeHtml}
+                ${verBadge}
                 <span class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full font-bold">
                   ${count} ${count === 1 ? 'sighting' : 'sightings'}
                 </span>
@@ -566,19 +570,25 @@ export class SnakeMapController {
       const marker = L.marker([lat, lng], { icon: customIcon });
 
       const photoTag = photo
-        ? `<img src="${photo}" class="w-full h-28 object-cover rounded-DEFAULT mb-2" alt="${commonName}"/>`
+        ? `<img src="${photo}" class="w-full h-28 object-cover rounded-DEFAULT mb-1.5" alt="${commonName}"/>`
         : '';
 
+      const verBadge = getVerificationBadgeHtml(obs.quality_grade === 'research' ? 'verified' : 'community_verified', true);
+
       marker.bindPopup(`
-        <div class="flex flex-col text-on-surface" style="width: 180px;">
+        <div class="flex flex-col text-on-surface overflow-hidden" style="width: 180px; max-width: 180px; box-sizing: border-box;">
           ${photoTag}
-          <span class="font-bold text-sm text-on-surface leading-tight">${commonName}</span>
-          <span class="text-xs text-on-surface-variant italic mb-1">${t.name || ''}</span>
-          <div class="flex items-center gap-1 text-[11px] text-on-surface-variant">
+          <div class="flex items-center gap-1 mb-1">
+            ${verBadge}
+          </div>
+          <span class="font-bold text-sm text-on-surface leading-tight truncate">${commonName}</span>
+          <span class="text-xs text-on-surface-variant italic mb-1 truncate">${t.name || ''}</span>
+          <div class="flex items-center justify-between text-[11px] text-on-surface-variant mt-0.5">
             <span>📅 ${obs.observed_on || 'Observed'}</span>
           </div>
-          <a href="https://www.inaturalist.org/observations/${obs.id}" target="_blank" rel="noopener" class="text-xs text-primary font-bold mt-1.5 inline-block hover:underline">
-            View Sighting ↗
+          <a href="https://www.inaturalist.org/observations/${obs.id}" target="_blank" rel="noopener" class="text-xs text-primary font-bold mt-1.5 inline-flex items-center gap-0.5 hover:underline">
+            <span>View Sighting</span>
+            <span class="material-symbols-outlined text-[12px]">open_in_new</span>
           </a>
         </div>
       `);
