@@ -387,8 +387,15 @@
           <div class="flex items-start gap-space-xs">
             <span class="material-symbols-outlined text-primary text-[22px] shrink-0 mt-0.5">tips_and_updates</span>
             <div class="flex flex-col text-on-surface">
-              <span id="detective-tip-title" class="font-label-sm text-label-sm font-bold text-primary">Detective Tip #1</span>
+              <div class="flex items-center gap-2 flex-wrap mb-0.5">
+                <span id="detective-tip-title" class="font-label-sm text-label-sm font-bold text-primary">Detective Tip #1</span>
+                <span id="detective-tip-badge"></span>
+              </div>
               <span id="detective-tip-text" class="font-body-sm text-body-sm text-on-surface-variant">Reptiles are cold-blooded! On cloudy days, check dry limestone rocks near Twin Falls where stored heat keeps them cozy.</span>
+              <a id="detective-tip-citation" href="#" target="_blank" rel="noopener" class="font-label-sm text-[11px] text-tertiary font-bold hover:underline mt-1 inline-flex items-center gap-0.5">
+                <span id="detective-tip-source">Source Citation</span>
+                <span class="material-symbols-outlined text-[12px]">open_in_new</span>
+              </a>
             </div>
           </div>
           <button id="detective-tip-next-btn" class="p-1 rounded-full text-tertiary hover:bg-surface-container shrink-0" title="Next Tip">
@@ -701,9 +708,12 @@
         <button data-close-modal class="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70">
           <span class="material-symbols-outlined text-[20px]">close</span>
         </button>
-        <span id="modal-species-badge" class="absolute bottom-3 left-3 bg-surface-container text-primary font-label-sm text-label-sm px-2.5 py-1 rounded-full shadow-md font-bold">
-          🌿 Harmless
-        </span>
+        <div class="absolute bottom-3 left-3 flex items-center gap-1.5 flex-wrap">
+          <span id="modal-species-badge" class="bg-surface-container text-primary font-label-sm text-label-sm px-2.5 py-1 rounded-full shadow-md font-bold">
+            🌿 Harmless
+          </span>
+          <span id="modal-species-verification-badge"></span>
+        </div>
       </div>
 
       <!-- Modal Body -->
@@ -749,6 +759,15 @@
             <span class="font-label-sm text-label-sm font-bold text-secondary">Detective Fact</span>
             <span id="modal-species-fact" class="font-body-sm text-body-sm text-on-surface">Fun fact here...</span>
           </div>
+        </div>
+
+        <!-- Citation & Verification Box -->
+        <div class="bg-surface-container-low p-space-sm rounded-DEFAULT flex items-center justify-between gap-space-xs flex-wrap">
+          <div id="modal-species-verification-container" class="flex items-center gap-1.5"></div>
+          <a id="modal-species-citation-link" href="#" target="_blank" rel="noopener" class="font-label-sm text-xs text-tertiary font-bold hover:underline inline-flex items-center gap-1">
+            <span id="modal-species-citation-source">Source Citation</span>
+            <span class="material-symbols-outlined text-[14px]">open_in_new</span>
+          </a>
         </div>
 
         <button id="modal-species-log-btn" class="w-full bg-primary-container text-on-primary font-label-lg text-label-lg py-space-sm px-space-md rounded-full flex items-center justify-center gap-space-xs shadow-[0_4px_0px_#00522d] active:translate-y-1 transition-all mt-1">

@@ -4,7 +4,7 @@ import { SnakeMapController } from './map.js';
  * SlitherScope - Main Application Controller
  * Handles UI rendering, hash routing, modal interactions, speech synthesis, and events.
  */
-import { SPECIES_DATA, LOCATIONS_DATA, SAFETY_RULES } from './data.js';
+import { SPECIES_DATA, LOCATIONS_DATA, SAFETY_RULES, getVerificationBadgeHtml } from './data.js';
 import { state } from './state.js';
 
 // SVG Fallback for broken images
@@ -410,6 +410,7 @@ class SlitherScopeApp {
               <span class="font-body-sm text-body-sm text-on-surface-variant italic truncate">${s.scientificName}</span>
               <div class="flex flex-wrap items-center gap-1 mt-1">
                 <span class="${badgeClass} font-label-sm text-label-sm px-2 py-0.5 rounded-full">${s.safetyBadge}</span>
+                ${getVerificationBadgeHtml(s.verificationStatus || 'verified', true)}
                 <span class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full">${s.size}</span>
               </div>
             </div>
@@ -468,10 +469,17 @@ class SlitherScopeApp {
     const tip = state.getCurrentTip();
     const titleEl = document.getElementById('detective-tip-title');
     const textEl = document.getElementById('detective-tip-text');
+    const badgeEl = document.getElementById('detective-tip-badge');
+    const citationLink = document.getElementById('detective-tip-citation');
+    const citationSource = document.getElementById('detective-tip-source');
     const nextBtn = document.getElementById('detective-tip-next-btn');
 
     if (titleEl) titleEl.textContent = tip.title;
     if (textEl) textEl.textContent = tip.text;
+    if (badgeEl) badgeEl.innerHTML = getVerificationBadgeHtml(tip.verificationStatus || 'verified', true);
+    if (citationLink) citationLink.href = tip.citationUrl || 'https://tpwd.texas.gov';
+    if (citationSource) citationSource.textContent = `Source: ${tip.citationSource || 'Texas Parks & Wildlife'}`;
+
     if (nextBtn) {
       nextBtn.onclick = () => {
         state.nextTip();
@@ -654,9 +662,12 @@ class SlitherScopeApp {
                  alt="${s.name}"
                  src="${s.imageUrl}"
                  onerror="this.onerror=null; this.src='${SVG_FALLBACK}';" />
-            <span class="absolute top-2 right-2 ${badgeClass} font-label-sm text-label-sm px-2 py-0.5 rounded-full shadow-sm">
-              ${s.safetyBadge}
-            </span>
+            <div class="absolute top-2 right-2 flex flex-col items-end gap-1">
+              <span class="${badgeClass} font-label-sm text-label-sm px-2 py-0.5 rounded-full shadow-sm">
+                ${s.safetyBadge}
+              </span>
+              ${getVerificationBadgeHtml(s.verificationStatus || 'verified', true)}
+            </div>
           </div>
           <div class="flex flex-col flex-1 justify-between">
             <div class="flex flex-col">
@@ -777,6 +788,13 @@ class SlitherScopeApp {
                   <span class="font-label-sm text-label-sm text-primary flex items-center gap-1 mt-0.5">
                     <span class="material-symbols-outlined text-[14px]">location_on</span> ${l.location}
                   </span>
+                  <div class="flex items-center gap-1.5 flex-wrap mt-1">
+                    ${getVerificationBadgeHtml(l.verificationStatus || 'unverified', true)}
+                    <a href="${l.citationUrl || 'https://www.inaturalist.org'}" target="_blank" rel="noopener" class="font-label-sm text-[11px] text-tertiary font-bold hover:underline inline-flex items-center gap-0.5">
+                      <span>${l.citationSource || 'iNaturalist Record'}</span>
+                      <span class="material-symbols-outlined text-[12px]">open_in_new</span>
+                    </a>
+                  </div>
                   <span class="font-body-sm text-body-sm text-on-surface-variant text-[12px] mt-0.5">
                     ${dateStr}
                   </span>
@@ -821,6 +839,7 @@ class SlitherScopeApp {
 
     const img = document.getElementById('modal-species-image');
     const badge = document.getElementById('modal-species-badge');
+    const verBadgeHeader = document.getElementById('modal-species-verification-badge');
     const name = document.getElementById('modal-species-name');
     const sciName = document.getElementById('modal-species-sci');
     const size = document.getElementById('modal-species-size');
@@ -828,6 +847,9 @@ class SlitherScopeApp {
     const diet = document.getElementById('modal-species-diet');
     const desc = document.getElementById('modal-species-desc');
     const kidFact = document.getElementById('modal-species-fact');
+    const verContainer = document.getElementById('modal-species-verification-container');
+    const citationLink = document.getElementById('modal-species-citation-link');
+    const citationSource = document.getElementById('modal-species-citation-source');
     const idTipsList = document.getElementById('modal-species-id-tips');
     const logBtn = document.getElementById('modal-species-log-btn');
     const audioBtn = document.getElementById('modal-species-audio-btn');
@@ -842,6 +864,9 @@ class SlitherScopeApp {
         ? 'bg-secondary text-on-secondary font-label-sm text-label-sm px-2.5 py-1 rounded-full'
         : 'bg-surface-container text-primary font-label-sm text-label-sm px-2.5 py-1 rounded-full';
     }
+    if (verBadgeHeader) {
+      verBadgeHeader.innerHTML = getVerificationBadgeHtml(s.verificationStatus || 'verified', true);
+    }
     if (name) name.textContent = s.name;
     if (sciName) sciName.textContent = s.scientificName;
     if (size) size.textContent = s.size;
@@ -849,6 +874,16 @@ class SlitherScopeApp {
     if (diet) diet.textContent = s.diet;
     if (desc) desc.textContent = s.description;
     if (kidFact) kidFact.textContent = s.kidFact;
+
+    if (verContainer) {
+      verContainer.innerHTML = getVerificationBadgeHtml(s.verificationStatus || 'verified', false);
+    }
+    if (citationLink) {
+      citationLink.href = s.citationUrl || 'https://tpwd.texas.gov';
+    }
+    if (citationSource) {
+      citationSource.textContent = `Source: ${s.citationSource || 'Texas Parks & Wildlife'}`;
+    }
 
     if (idTipsList && s.idTips) {
       idTipsList.innerHTML = s.idTips.map(tip => `

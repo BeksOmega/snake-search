@@ -37,7 +37,13 @@ class AppState {
     const savedLogs = localStorage.getItem(STORAGE_KEYS.LOGS);
     if (savedLogs) {
       try {
-        this.sightingLogs = JSON.parse(savedLogs);
+        const parsed = JSON.parse(savedLogs);
+        this.sightingLogs = parsed.map(log => ({
+          verificationStatus: log.verificationStatus || 'unverified',
+          citationUrl: log.citationUrl || (log.speciesId ? (this.getSpeciesById(log.speciesId)?.citationUrl || 'https://www.inaturalist.org') : 'https://www.inaturalist.org'),
+          citationSource: log.citationSource || (log.speciesId ? (this.getSpeciesById(log.speciesId)?.citationSource || 'iNaturalist Field Record') : 'iNaturalist Field Record'),
+          ...log
+        }));
       } catch (e) {
         this.sightingLogs = [...SAMPLE_LOGS];
       }
@@ -272,7 +278,10 @@ class AppState {
       habitat: habitat || (species ? species.primaryHabitat : 'rocks'),
       notes: notes || 'Observed quietly in the field.',
       photoUrl: image,
-      xpEarned: 50
+      xpEarned: 50,
+      verificationStatus: species ? 'community_verified' : 'unverified',
+      citationUrl: species ? (species.citationUrl || 'https://www.inaturalist.org') : 'https://www.inaturalist.org',
+      citationSource: species ? (species.citationSource || 'User Field Sightings') : 'User Field Sightings'
     };
 
     this.sightingLogs.unshift(newLog);
