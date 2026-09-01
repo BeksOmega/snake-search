@@ -3,34 +3,16 @@
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
-  <title>SlitherScope - Area Census & Live Snake Map</title>
+  <title>SlitherScope - Texas Reptile Census & Snake Finder</title>
   <link href="https://fonts.googleapis.com" rel="preconnect"/>
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,600,0,0" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-  <!-- Leaflet Map CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <!-- Leaflet Map CSS & JS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-  
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <style>
-    @layer base {
-      html, body {
-        width: 100vw;
-        margin: 0;
-        padding: 0;
-        background-color: #f3faff;
-      }
-      body {
-        overscroll-behavior: none;
-        font-family: 'Nunito Sans', sans-serif;
-      }
-      .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
-      .pt-safe { padding-top: env(safe-area-inset-top, 0px); }
-      main > :first-child { margin-top: 0 !important; }
-      main > :last-child { margin-bottom: 0 !important; }
-    }
-    ::-webkit-scrollbar { display: none; }
-    
     /* Custom Leaflet Map styling to match Material 3 theme */
     .leaflet-container {
       font-family: 'Nunito Sans', sans-serif !important;
@@ -60,11 +42,26 @@
       transform: scale(1.25);
     }
   </style>
-
+  <style>
+    @layer base {
+      html, body {
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+        background-color: #f3faff;
+      }
+      body {
+        overscroll-behavior: none;
+        font-family: 'Nunito Sans', sans-serif;
+      }
+      .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
+      .pt-safe { padding-top: env(safe-area-inset-top, 0px); }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Leaflet Map JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
   <script id="tailwind-config">
     tailwind.config = {
       darkMode: "class",
@@ -128,68 +125,83 @@
           spacing: {
             "space-xxs": "0.25rem",
             "space-xs": "0.5rem",
-            "space-sm": "0.75rem",
-            "space-md": "1rem",
-            "space-lg": "1.5rem",
             "space-xl": "2rem",
-            "space-2xl": "3rem",
-            "space-3xl": "4rem",
-            "gutter-mobile": "1rem",
             "gutter-tablet": "1.5rem",
+            "space-md": "1rem",
+            "gutter-mobile": "1rem",
+            "space-3xl": "4rem",
+            "space-2xl": "3rem",
+            "touch-target-min": "3rem",
+            "space-sm": "0.75rem",
+            "space-lg": "1.5rem",
             "gutter-desktop": "2rem"
           },
           fontFamily: {
             "headline-sm": ["Quicksand"],
-            "headline-md": ["Quicksand"],
-            "headline-lg": ["Quicksand"],
-            "display": ["Quicksand"],
             "display-mobile": ["Quicksand"],
+            "headline-lg-mobile": ["Quicksand"],
+            "display": ["Quicksand"],
             "label-sm": ["Quicksand"],
-            "label-md": ["Quicksand"],
             "label-lg": ["Quicksand"],
             "body-sm": ["Nunito Sans"],
+            "label-md": ["Quicksand"],
+            "body-lg": ["Nunito Sans"],
             "body-md": ["Nunito Sans"],
-            "body-lg": ["Nunito Sans"]
+            "headline-lg": ["Quicksand"],
+            "headline-md": ["Quicksand"]
+          },
+          fontSize: {
+            "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }],
+            "display-mobile": ["32px", { lineHeight: "38px", letterSpacing: "-0.01em", fontWeight: "700" }],
+            "headline-lg-mobile": ["24px", { lineHeight: "32px", fontWeight: "700" }],
+            "display": ["40px", { lineHeight: "48px", letterSpacing: "-0.01em", fontWeight: "700" }],
+            "label-sm": ["12px", { lineHeight: "16px", letterSpacing: "0.04em", fontWeight: "700" }],
+            "label-lg": ["16px", { lineHeight: "22px", letterSpacing: "0.02em", fontWeight: "700" }],
+            "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+            "label-md": ["14px", { lineHeight: "18px", letterSpacing: "0.02em", fontWeight: "700" }],
+            "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+            "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+            "headline-lg": ["30px", { lineHeight: "38px", fontWeight: "700" }],
+            "headline-md": ["22px", { lineHeight: "30px", fontWeight: "600" }]
           }
         }
       }
     };
   </script>
 </head>
-
 <body class="bg-surface text-on-surface min-h-screen flex flex-col antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
 
-  <!-- Fixed Top Header -->
-  <header class="fixed top-0 w-full z-50 pt-safe bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+  <!-- Fixed App Header -->
+  <header class="fixed top-0 w-full z-40 pt-safe bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
     <div class="h-16 px-gutter-mobile flex items-center justify-between">
-      <div class="flex items-center gap-space-xs">
-        <span class="text-3xl">🐍</span>
+      <a href="#area-census" class="flex items-center gap-space-xs focus:outline-none">
+        <img alt="SlitherScope Mascot Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkv5xvEg3OoknkzNY1ZgLBPYVnjeN-6lX4m7XMihya-56fMvw-JXf_WNffHg2pfavpEGN26ro9crCMxJOYZOYeLn8AG8hEAc_keB3UpFhjXVYyKS1hKqV0NO5_TOYrmUUhvF0guqnC6ImUcBOZGDWHa8pUl7MbkMfQ589pBaSDPGzg82CoZ81vkbcEjNp1QzSw65nT1INyWNr-D22x5SBAU2EEzPcYPPO_lWimeV91Tvm6ABA3UhHV1A"/>
         <div class="flex flex-col">
           <span class="font-headline-sm text-headline-sm text-primary tracking-tight leading-none">SlitherScope</span>
-          <span class="font-label-sm text-label-sm text-on-surface-variant font-bold">Live Snake Census</span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant font-bold">Texas Reptile Census</span>
         </div>
-      </div>
+      </a>
       <div class="flex items-center gap-space-sm">
-        <div class="h-9 px-space-sm rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center gap-1 shadow-[0_2px_0px_#6f3800]">
+        <a href="#my-log" id="header-xp-badge" class="h-9 px-space-sm rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center gap-1 shadow-[0_2px_0px_#6f3800] active:translate-y-0.5 transition-transform">
           <span class="material-symbols-outlined text-[18px] text-secondary">workspace_premium</span>
           <span class="font-label-sm text-label-sm font-bold">240 XP</span>
-        </div>
-        <button aria-label="Explorer Profile" class="w-9 h-9 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center p-0 focus:outline-none">
-          <div class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold text-sm ring-2 ring-primary-container">
-            🕵️
-          </div>
+        </a>
+        <button id="header-profile-btn" aria-label="Explorer Profile" class="w-9 h-9 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center p-0 focus:outline-none">
+          <img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-primary-container" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFsE_iPQfBlXMajfg5GjlH_0ExUm08boFhd-JuFVSvk7mbn8xEocsQWfOYLov2QA3ZDSsHruwe9xSqV57E9vx7QiiOFK_N8G8tTVogdVkXsCxG5gsqSHe6ZTEitViNRGjq6P5ZYuVIP8oypmtdppBSHffwSrpU3oS03EYdg4q3mG2GTNvoM9URXPuI8Ye9pcEjSC-5dRyFD8jsOxHh7ct7fO9pW1JPjeRNM2juym2B4IHhR-Ny8si-zg"/>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Main Scrollable Content -->
+  <!-- Main Content Container -->
   <main class="flex flex-col flex-1 relative w-full pt-16 pb-28 bg-surface">
-    <div class="flex flex-col w-full px-gutter-mobile gap-space-md max-w-4xl mx-auto">
 
-      <!-- ======================================================== -->
-      <!-- MAP SECTION: Interactive Live Map & Area Selector       -->
-      <!-- ======================================================== -->
+    <!-- ========================================== -->
+    <!-- VIEW 1: AREA CENSUS VIEW                   -->
+    <!-- ========================================== -->
+        <div id="view-census" class="flex flex-col w-full px-gutter-mobile gap-space-md">
+      
+      <!-- Interactive Live Leaflet Map & Area Selector -->
       <section id="map-section" class="w-full bg-surface-container-lowest rounded-lg p-space-sm shadow-sm flex flex-col gap-space-xs mt-2">
         <div class="flex items-center justify-between px-1">
           <div class="flex items-center gap-space-xs">
@@ -204,19 +216,19 @@
 
         <!-- Quick Jump Location Presets -->
         <div class="flex gap-space-xs overflow-x-auto py-1 scrollbar-none">
-          <button onclick="jumpToPreset(37.424, -122.068, 'Google Mountain View Campus', 8)" class="preset-btn bg-primary-container text-on-primary font-label-sm text-label-sm px-space-sm py-1 rounded-full whitespace-nowrap shadow-[0_2px_0px_#00522d] active:translate-y-0.5 transition-all flex items-center gap-1">
+          <button onclick="window.slitherApp && window.slitherApp.jumpToPreset ? window.slitherApp.jumpToPreset(37.424, -122.068, 'Google Mountain View Campus', 8) : null" class="preset-btn bg-primary-container text-on-primary font-label-sm text-label-sm px-space-sm py-1 rounded-full whitespace-nowrap shadow-[0_2px_0px_#00522d] active:translate-y-0.5 transition-all flex items-center gap-1">
             <span>🏢</span> Google Campus
           </button>
-          <button onclick="jumpToPreset(30.260, -97.795, 'Barton Creek, Austin TX', 8)" class="preset-btn bg-surface-container-high text-on-surface font-label-sm text-label-sm px-space-sm py-1 rounded-full whitespace-nowrap active:translate-y-0.5 transition-all flex items-center gap-1">
+          <button onclick="window.slitherApp && window.slitherApp.jumpToPreset ? window.slitherApp.jumpToPreset(30.260, -97.795, 'Barton Creek, Austin TX', 8) : null" class="preset-btn bg-surface-container-high text-on-surface font-label-sm text-label-sm px-space-sm py-1 rounded-full whitespace-nowrap active:translate-y-0.5 transition-all flex items-center gap-1">
             <span>🤠</span> Barton Creek (Austin)
           </button>
-          <button onclick="jumpToPreset(37.745, -119.593, 'Yosemite Valley, CA', 12)" class="preset-btn bg-surface-container-high text-on-surface font-label-sm text-label-sm px-space-sm py-1 rounded-full whitespace-nowrap active:translate-y-0.5 transition-all flex items-center gap-1">
+          <button onclick="window.slitherApp && window.slitherApp.jumpToPreset ? window.slitherApp.jumpToPreset(37.745, -119.593, 'Yosemite Valley, CA', 12) : null" class="preset-btn bg-surface-container-high text-on-surface font-label-sm text-label-sm px-space-sm py-1 rounded-full whitespace-nowrap active:translate-y-0.5 transition-all flex items-center gap-1">
             <span>🌲</span> Yosemite
           </button>
-          <button onclick="jumpToPreset(33.450, -112.070, 'Phoenix / Sonoran Desert, AZ', 12)" class="preset-btn bg-surface-container-high text-on-surface font-label-sm text-label-sm px-space-sm py-1 rounded-full whitespace-nowrap active:translate-y-0.5 transition-all flex items-center gap-1">
+          <button onclick="window.slitherApp && window.slitherApp.jumpToPreset ? window.slitherApp.jumpToPreset(33.450, -112.070, 'Phoenix / Sonoran Desert, AZ', 12) : null" class="preset-btn bg-surface-container-high text-on-surface font-label-sm text-label-sm px-space-sm py-1 rounded-full whitespace-nowrap active:translate-y-0.5 transition-all flex items-center gap-1">
             <span>🏜️</span> Phoenix Desert
           </button>
-          <button onclick="useCurrentLocation()" class="preset-btn bg-surface-container-high text-on-surface font-label-sm text-label-sm px-space-sm py-1 rounded-full whitespace-nowrap active:translate-y-0.5 transition-all flex items-center gap-1">
+          <button onclick="window.slitherApp && window.slitherApp.useCurrentLocation ? window.slitherApp.useCurrentLocation() : null" class="preset-btn bg-surface-container-high text-on-surface font-label-sm text-label-sm px-space-sm py-1 rounded-full whitespace-nowrap active:translate-y-0.5 transition-all flex items-center gap-1">
             <span>📍</span> My Location
           </button>
         </div>
@@ -228,9 +240,9 @@
           <!-- Map Overlay Controls: Search Radius -->
           <div class="absolute top-2 right-2 z-[400] bg-surface-container-lowest/90 backdrop-blur-md rounded-full px-2 py-1 shadow-md flex items-center gap-1 border border-surface-container text-xs font-bold">
             <span class="text-on-surface-variant font-label-sm text-[11px] ml-1">Radius:</span>
-            <button onclick="setRadius(5)" id="rad-5" class="rad-btn px-2 py-0.5 rounded-full bg-primary text-on-primary">5 mi</button>
-            <button onclick="setRadius(10)" id="rad-10" class="rad-btn px-2 py-0.5 rounded-full bg-surface-container text-on-surface">10 mi</button>
-            <button onclick="setRadius(25)" id="rad-25" class="rad-btn px-2 py-0.5 rounded-full bg-surface-container text-on-surface">25 mi</button>
+            <button onclick="window.slitherApp && window.slitherApp.setRadius ? window.slitherApp.setRadius(5) : null" id="rad-5" class="rad-btn px-2 py-0.5 rounded-full bg-primary text-on-primary">5 mi</button>
+            <button onclick="window.slitherApp && window.slitherApp.setRadius ? window.slitherApp.setRadius(10) : null" id="rad-10" class="rad-btn px-2 py-0.5 rounded-full bg-surface-container text-on-surface">10 mi</button>
+            <button onclick="window.slitherApp && window.slitherApp.setRadius ? window.slitherApp.setRadius(25) : null" id="rad-25" class="rad-btn px-2 py-0.5 rounded-full bg-surface-container text-on-surface">25 mi</button>
           </div>
 
           <!-- Map Pin Legend Overlay -->
@@ -244,32 +256,24 @@
           Click or drag anywhere on the map to survey snake species recorded by iNaturalist in that zone.
         </p>
       </section>
-
-      <!-- ======================================================== -->
-      <!-- CENSUS HERO BANNER                                       -->
-      <!-- ======================================================== -->
-      <div class="relative w-full rounded-lg bg-surface-container-low p-space-md shadow-sm overflow-hidden">
+      
+      <!-- Area Banner Header Card (Clickable to switch location) -->
+      <div id="census-location-banner" class="relative w-full rounded-lg bg-surface-container-low p-space-md shadow-sm overflow-hidden cursor-pointer hover:bg-surface-container transition-colors group">
         <div class="flex items-center justify-between gap-space-sm mb-space-xs">
           <div class="flex items-center gap-space-xxs text-primary">
             <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">location_on</span>
-            <span id="current-location-chip" class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">
-              Google Mountain View Campus • 5-Mile Radius
-            </span>
+            <span id="census-area-label" class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">Austin, Texas • 5-Mile Radius</span>
+            <span class="material-symbols-outlined text-[16px] text-primary group-hover:translate-x-0.5 transition-transform">expand_more</span>
           </div>
-          <span id="live-indicator" class="inline-flex items-center gap-1 bg-surface-container-highest text-on-surface px-space-xs py-1 rounded-full font-label-sm text-label-sm">
-            <span id="live-dot" class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
-            <span id="live-text">Live iNaturalist Data</span>
+          <span class="inline-flex items-center gap-1 bg-surface-container-highest text-on-surface px-space-xs py-1 rounded-full font-label-sm text-label-sm">
+            <span id="census-live-dot" class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+            <span id="census-live-text">Live iNaturalist Data</span>
           </span>
         </div>
         <div class="relative z-10">
-          <h1 id="census-title" class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">
-            Mountain View Bio-Survey
-          </h1>
-          <p id="census-subtitle" class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
-            Real wildlife observations recorded within the selected radius
-          </p>
+          <h1 id="census-title" class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Barton Creek Census</h1>
+          <p id="census-subtitle" class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Greenbelt bio-survey for young wildlife detectives</p>
         </div>
-
         <!-- Quick Stats Bento Strip -->
         <div class="grid grid-cols-2 gap-space-xs mt-space-sm">
           <div class="bg-surface-container-lowest p-space-sm rounded-DEFAULT flex items-center gap-space-xs shadow-sm">
@@ -277,7 +281,7 @@
               <span class="material-symbols-outlined text-[22px]">diversity_2</span>
             </div>
             <div class="flex flex-col min-w-0">
-              <span id="species-count-stat" class="font-display-mobile text-display-mobile leading-none text-tertiary font-bold">...</span>
+              <span id="census-species-count" class="font-display-mobile text-display-mobile leading-none text-tertiary font-bold">14</span>
               <span class="font-label-sm text-label-sm text-on-surface-variant truncate">Species Counted</span>
             </div>
           </div>
@@ -286,631 +290,481 @@
               <span class="material-symbols-outlined text-[22px]">pets</span>
             </div>
             <div class="flex flex-col min-w-0">
-              <span id="observations-count-stat" class="font-display-mobile text-display-mobile leading-none text-secondary font-bold">...</span>
-              <span class="font-label-sm text-label-sm text-on-surface-variant truncate">Local Sightings</span>
+              <span id="census-neighbors-count" class="font-display-mobile text-display-mobile leading-none text-secondary font-bold">~340</span>
+              <span class="font-label-sm text-label-sm text-on-surface-variant truncate">Local Neighbors</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ======================================================== -->
-      <!-- PROPORTIONS & CATERPILLAR PROGRESS BAR                   -->
-      <!-- ======================================================== -->
+      <!-- Species Proportion Breakdown Section -->
       <section class="w-full bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-sm" id="breakdown-section">
         <div class="flex items-center justify-between">
           <div class="flex flex-col">
             <span class="font-headline-sm text-headline-sm text-on-surface">Who Lives Here?</span>
-            <span class="font-body-sm text-body-sm text-on-surface-variant">Live proportion of local snake species</span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant">Proportion of local snake families</span>
           </div>
-          <button onclick="refreshData()" title="Refresh data" class="w-8 h-8 rounded-full bg-surface-container text-primary flex items-center justify-center hover:bg-surface-container-high transition-all">
-            <span class="material-symbols-outlined text-[18px]">refresh</span>
+          <button id="census-audio-btn" aria-label="Read census audio breakdown" class="w-9 h-9 rounded-full bg-surface-container text-tertiary flex items-center justify-center hover:bg-surface-container-high transition-all" title="Listen to Census Breakdown">
+            <span class="material-symbols-outlined text-[20px]">volume_up</span>
           </button>
         </div>
 
-        <!-- Dynamic Multi-Segmented Caterpillar Progress Bar -->
+        <!-- Multi-Segmented Caterpillar Progress Bar -->
         <div class="w-full flex flex-col gap-space-xxs pt-space-xs">
-          <div id="caterpillar-bar" class="h-6 w-full bg-surface-container rounded-full flex overflow-hidden p-0.5 gap-0.5 shadow-inner transition-all duration-500">
-            <!-- Segments injected dynamically via JavaScript -->
-            <div class="h-full bg-primary rounded-full w-full animate-pulse"></div>
+          <div id="census-caterpillar-bar" class="h-6 w-full bg-surface-container rounded-full flex overflow-hidden p-0.5 gap-0.5 shadow-inner">
+            <div id="bar-garter" class="h-full bg-primary rounded-l-full transition-all duration-300 relative group" style="width: 45%;" title="Water & Garter (45%)"></div>
+            <div id="bar-rat" class="h-full bg-tertiary-container transition-all duration-300" style="width: 30%;" title="Rat & Kingsnakes (30%)"></div>
+            <div id="bar-tiny" class="h-full bg-secondary-container transition-all duration-300" style="width: 18%;" title="Tiny Bug Eaters (18%)"></div>
+            <div id="bar-viper" class="h-full bg-secondary rounded-r-full transition-all duration-300" style="width: 7%;" title="Pit Vipers (7%)"></div>
           </div>
-
-          <!-- Harmless vs Caution Banner -->
-          <div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm px-1 pt-1">
-            <span id="harmless-stat" class="text-primary font-bold">🌿 ...% Harmless Helpers</span>
-            <span id="caution-stat" class="text-secondary font-bold">⚠️ ...% Watch From Afar</span>
+          <div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm px-1">
+            <span id="caterpillar-harmless-label">🌿 93% Totally Harmless Helpers</span>
+            <span id="caterpillar-caution-label" class="text-secondary font-bold">⚠️ 7% Watch From Afar</span>
           </div>
         </div>
 
-        <!-- Interactive Safety & Family Filter Chips -->
-        <div class="flex gap-space-xs overflow-x-auto pb-space-xxs pt-space-xs scrollbar-none" id="filter-chips-container">
-          <button class="family-btn bg-primary-container text-on-primary font-label-sm text-label-sm px-space-sm py-1.5 rounded-full whitespace-nowrap shadow-[0_3px_0px_#00522d] active:translate-y-0.5 transition-all" onclick="filterSpecies('all', this)">
-            All Species (100%)
-          </button>
-          <button class="family-btn bg-surface-container-high text-on-surface font-label-sm text-label-sm px-space-sm py-1.5 rounded-full whitespace-nowrap active:translate-y-0.5 transition-all" onclick="filterSpecies('harmless', this)">
-            🌿 Harmless Only
-          </button>
-          <button class="family-btn bg-surface-container-high text-on-surface font-label-sm text-label-sm px-space-sm py-1.5 rounded-full whitespace-nowrap active:translate-y-0.5 transition-all" onclick="filterSpecies('caution', this)">
-            ⚠️ Caution: Venomous
-          </button>
+        <!-- Interactive Family Filter Chips -->
+        <div id="family-chips-container" class="flex gap-space-xs overflow-x-auto pb-space-xxs pt-space-xxs scrollbar-none">
+          <!-- Dynamically populated chips -->
         </div>
-      </section>
 
-      <!-- ======================================================== -->
-      <!-- DETAILED SPECIES SIGHTINGS LIST (DYNAMIC)                 -->
-      <!-- ======================================================== -->
-      <section class="w-full flex flex-col gap-space-sm">
-        <div class="flex items-center justify-between px-1">
-          <div class="flex items-center gap-space-xs">
-            <span class="material-symbols-outlined text-primary text-[24px]">view_list</span>
-            <h2 class="font-headline-sm text-headline-sm text-on-surface">Species Found in This Area</h2>
+        <!-- Quick Family Legend Cards -->
+        <div class="grid grid-cols-2 gap-space-xs mt-space-xxs">
+          <div class="bg-surface-container-low rounded-DEFAULT p-space-xs flex items-start gap-space-xs cursor-pointer hover:bg-surface-container transition-colors" data-legend-family="garter">
+            <div class="w-3 h-3 rounded-full bg-primary mt-1 shrink-0"></div>
+            <div class="flex flex-col min-w-0">
+              <span class="font-label-sm text-label-sm text-on-surface font-bold truncate">Water & Garter</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant leading-tight text-xs">Friendly garden pals</span>
+            </div>
           </div>
-          <span id="species-badge-count" class="font-label-sm text-label-sm text-on-surface-variant font-bold">... Types</span>
-        </div>
-
-        <!-- Container for dynamically injected species cards -->
-        <div id="species-cards-container" class="flex flex-col gap-space-sm">
-          <!-- Skeletons while loading -->
-          <div class="w-full bg-surface-container-lowest rounded-lg p-space-sm shadow-sm flex items-center gap-space-sm animate-pulse">
-            <div class="w-20 h-20 bg-surface-container rounded-DEFAULT shrink-0"></div>
-            <div class="flex flex-col flex-1 gap-2">
-              <div class="h-5 bg-surface-container rounded w-3/4"></div>
-              <div class="h-3 bg-surface-container rounded w-1/2"></div>
-              <div class="h-4 bg-surface-container rounded w-1/4"></div>
+          <div class="bg-surface-container-low rounded-DEFAULT p-space-xs flex items-start gap-space-xs cursor-pointer hover:bg-surface-container transition-colors" data-legend-family="rat">
+            <div class="w-3 h-3 rounded-full bg-tertiary-container mt-1 shrink-0"></div>
+            <div class="flex flex-col min-w-0">
+              <span class="font-label-sm text-label-sm text-on-surface font-bold truncate">Rat & Kings</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant leading-tight text-xs">Rodent patrol champs</span>
+            </div>
+          </div>
+          <div class="bg-surface-container-low rounded-DEFAULT p-space-xs flex items-start gap-space-xs cursor-pointer hover:bg-surface-container transition-colors" data-legend-family="tiny">
+            <div class="w-3 h-3 rounded-full bg-secondary-container mt-1 shrink-0"></div>
+            <div class="flex flex-col min-w-0">
+              <span class="font-label-sm text-label-sm text-on-surface font-bold truncate">Tiny Bug Hunters</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant leading-tight text-xs">Ringneck & green</span>
+            </div>
+          </div>
+          <div class="bg-surface-container-low rounded-DEFAULT p-space-xs flex items-start gap-space-xs cursor-pointer hover:bg-surface-container transition-colors" data-legend-family="viper">
+            <div class="w-3 h-3 rounded-full bg-secondary mt-1 shrink-0"></div>
+            <div class="flex flex-col min-w-0">
+              <span class="font-label-sm text-label-sm text-on-surface font-bold truncate">Pit Vipers</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant leading-tight text-xs">Observe from distance</span>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ======================================================== -->
-      <!-- EXPLORER DETECTIVE TIP BOX                                -->
-      <!-- ======================================================== -->
-      <div class="bg-surface-container-low rounded-DEFAULT p-space-sm flex items-start gap-space-xs">
-        <span class="material-symbols-outlined text-primary text-[22px] shrink-0 mt-0.5">tips_and_updates</span>
-        <div class="flex flex-col text-on-surface">
-          <span class="font-label-sm text-label-sm font-bold text-primary">Detective Field Tip</span>
-          <span id="detective-tip-text" class="font-body-sm text-body-sm text-on-surface-variant">
-            Reptiles are cold-blooded! On warm mornings, look near sunlit rocks and trail borders where snakes warm up before foraging.
-          </span>
+      <!-- Detailed Species Proportion Cards List -->
+      <section class="w-full flex flex-col gap-space-sm">
+        <div class="flex items-center justify-between px-1">
+          <div class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-primary text-[24px]">view_list</span>
+            <h2 class="font-headline-sm text-headline-sm text-on-surface">Top Species Sightings</h2>
+          </div>
+          <span id="census-species-types-count" class="font-label-sm text-label-sm text-on-surface-variant font-bold">5 Major Types</span>
         </div>
-      </div>
+        <!-- Dynamically injected species cards -->
+        <div id="census-species-list" class="flex flex-col gap-space-sm"></div>
+      </section>
 
-      <!-- Share Census Button -->
+      <!-- Kid-Friendly Habitat Distribution Breakdown -->
+      <section class="w-full bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-sm">
+        <div class="flex items-center justify-between">
+          <div class="flex flex-col">
+            <h3 class="font-headline-sm text-headline-sm text-on-surface">Where Are They Hiding?</h3>
+            <span class="font-body-sm text-body-sm text-on-surface-variant">Barton Creek Habitat Zones</span>
+          </div>
+          <span class="material-symbols-outlined text-primary text-[24px]">forest</span>
+        </div>
+        <!-- Habitat Cards Grid -->
+        <div id="census-habitats-grid" class="grid grid-cols-3 gap-space-xs">
+          <!-- Dynamically populated -->
+        </div>
+
+        <!-- Explorer Tip Box -->
+        <div class="bg-surface-container-low rounded-DEFAULT p-space-sm flex items-start justify-between gap-space-xs">
+          <div class="flex items-start gap-space-xs">
+            <span class="material-symbols-outlined text-primary text-[22px] shrink-0 mt-0.5">tips_and_updates</span>
+            <div class="flex flex-col text-on-surface">
+              <span id="detective-tip-title" class="font-label-sm text-label-sm font-bold text-primary">Detective Tip #1</span>
+              <span id="detective-tip-text" class="font-body-sm text-body-sm text-on-surface-variant">Reptiles are cold-blooded! On cloudy days, check dry limestone rocks near Twin Falls where stored heat keeps them cozy.</span>
+            </div>
+          </div>
+          <button id="detective-tip-next-btn" class="p-1 rounded-full text-tertiary hover:bg-surface-container shrink-0" title="Next Tip">
+            <span class="material-symbols-outlined text-[20px]">refresh</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Share Census Floating Action Button Area -->
       <div class="w-full pt-space-xs pb-space-sm flex justify-center">
-        <button class="w-full bg-primary-container text-on-primary font-label-lg text-label-lg py-space-sm px-space-md rounded-full flex items-center justify-center gap-space-xs shadow-[0_4px_0px_#00522d] active:translate-y-1 active:shadow-none transition-all" onclick="triggerShareModal()">
+        <button id="census-share-btn" class="w-full bg-primary-container text-on-primary font-label-lg text-label-lg py-space-sm px-space-md rounded-full flex items-center justify-center gap-space-xs shadow-[0_4px_0px_#00522d] active:translate-y-1 active:shadow-none transition-all">
           <span class="material-symbols-outlined text-[22px]">share</span>
-          <span>Share This Census with Class or Troop</span>
+          <span>Share Census with Class or Troop</span>
         </button>
-      </div>
-
-      <!-- Toast Confirmation -->
-      <div class="fixed bottom-24 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface px-space-md py-space-xs rounded-full font-label-sm text-label-sm shadow-xl flex items-center gap-space-xs opacity-0 pointer-events-none transition-opacity duration-300 z-50" id="share-toast">
-        <span class="material-symbols-outlined text-inverse-primary text-[18px]">verified</span>
-        <span>Area Census Copied! Ready to share 🐍</span>
       </div>
 
     </div>
+
+    <!-- ========================================== -->
+    <!-- VIEW 2: EXPLORE & SEARCH VIEW              -->
+    <!-- ========================================== -->
+    <div id="view-explore" class="hidden flex flex-col w-full px-gutter-mobile gap-space-md">
+      
+      <!-- Search Box Card -->
+      <div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-sm">
+        <div class="flex flex-col">
+          <h1 class="font-headline-lg-mobile text-on-surface">Snake Finder & Explorer</h1>
+          <p class="font-body-sm text-on-surface-variant">Search by name, marking, pattern, or habitat</p>
+        </div>
+
+        <div class="relative w-full">
+          <span class="material-symbols-outlined absolute left-3 top-3 text-tertiary text-[20px]">search</span>
+          <input id="explore-search-input" type="text" placeholder="Search snakes (e.g. garter, green, water, striped)..." class="w-full pl-10 pr-10 py-2.5 bg-surface-container-low rounded-full font-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary border-none"/>
+          <button id="explore-clear-search" class="hidden absolute right-3 top-2.5 text-on-surface-variant hover:text-on-surface">
+            <span class="material-symbols-outlined text-[18px]">close</span>
+          </button>
+        </div>
+
+        <!-- Trait Filters -->
+        <div class="flex flex-col gap-space-xs pt-1 border-t border-surface-container">
+          <!-- Danger Filter -->
+          <div class="flex items-center gap-space-xs overflow-x-auto scrollbar-none py-1">
+            <span class="font-label-sm text-on-surface-variant font-bold text-xs uppercase shrink-0">Safety:</span>
+            <button data-filter-danger="all" class="px-3 py-1.5 rounded-full font-label-sm text-label-sm bg-primary text-on-primary font-bold shadow-sm">All</button>
+            <button data-filter-danger="harmless" class="px-3 py-1.5 rounded-full font-label-sm text-label-sm bg-surface-container-high text-on-surface">🌿 Harmless</button>
+            <button data-filter-danger="venomous" class="px-3 py-1.5 rounded-full font-label-sm text-label-sm bg-surface-container-high text-on-surface">⚠️ Venomous</button>
+          </div>
+
+          <!-- Habitat Filter -->
+          <div class="flex items-center gap-space-xs overflow-x-auto scrollbar-none py-1">
+            <span class="font-label-sm text-on-surface-variant font-bold text-xs uppercase shrink-0">Habitat:</span>
+            <button data-filter-hab="all" class="px-3 py-1.5 rounded-full font-label-sm text-label-sm bg-tertiary text-on-tertiary font-bold shadow-sm">All</button>
+            <button data-filter-hab="creek" class="px-3 py-1.5 rounded-full font-label-sm text-label-sm bg-surface-container-high text-on-surface">💧 Creek & Water</button>
+            <button data-filter-hab="rocks" class="px-3 py-1.5 rounded-full font-label-sm text-label-sm bg-surface-container-high text-on-surface">☀️ Sunny Rocks</button>
+            <button data-filter-hab="canopy" class="px-3 py-1.5 rounded-full font-label-sm text-label-sm bg-surface-container-high text-on-surface">🌳 Tree Canopy</button>
+            <button data-filter-hab="leaf_litter" class="px-3 py-1.5 rounded-full font-label-sm text-label-sm bg-surface-container-high text-on-surface">🍂 Leaf Litter</button>
+          </div>
+
+          <!-- Pattern Filter -->
+          <div class="flex items-center gap-space-xs overflow-x-auto scrollbar-none py-1">
+            <span class="font-label-sm text-on-surface-variant font-bold text-xs uppercase shrink-0">Pattern:</span>
+            <button data-filter-pattern="all" class="px-3 py-1.5 rounded-full font-label-sm text-label-sm bg-secondary text-on-secondary font-bold shadow-sm">All</button>
+            <button data-filter-pattern="striped" class="px-3 py-1.5 rounded-full font-label-sm text-label-sm bg-surface-container-high text-on-surface">Striped</button>
+            <button data-filter-pattern="blotched" class="px-3 py-1.5 rounded-full font-label-sm text-label-sm bg-surface-container-high text-on-surface">Blotched</button>
+            <button data-filter-pattern="solid" class="px-3 py-1.5 rounded-full font-label-sm text-label-sm bg-surface-container-high text-on-surface">Solid</button>
+            <button data-filter-pattern="hourglass-bands" class="px-3 py-1.5 rounded-full font-label-sm text-label-sm bg-surface-container-high text-on-surface">Hourglass Bands</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search Results Header & Grid -->
+      <div class="flex items-center justify-between px-1">
+        <span id="explore-results-count" class="font-label-sm text-label-sm text-on-surface-variant font-bold">Showing 10 of 10 Species</span>
+      </div>
+      <div id="explore-results-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+        <!-- Injected species cards -->
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- VIEW 3: FIELD GUIDE & SAFETY               -->
+    <!-- ========================================== -->
+    <div id="view-guide" class="hidden flex flex-col w-full px-gutter-mobile gap-space-md">
+      
+      <div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-sm">
+        <div class="flex items-center gap-space-xs text-primary">
+          <span class="material-symbols-outlined text-[28px]">verified_user</span>
+          <h1 class="font-headline-lg-mobile text-on-surface">The S.N.A.K.E. Safety Rules</h1>
+        </div>
+        <p class="font-body-sm text-on-surface-variant">Remember these five simple steps whenever you encounter wildlife on the trail:</p>
+        
+        <!-- S.N.A.K.E. Rule Cards -->
+        <div id="guide-safety-rules" class="flex flex-col gap-space-xs mt-2">
+          <!-- Injected safety rules -->
+        </div>
+      </div>
+
+      <!-- Quick Identification Cheat Sheet -->
+      <div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-sm">
+        <h2 class="font-headline-sm text-on-surface flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary">compare_arrows</span>
+          Harmless Swimmer vs Venomous Viper
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm">
+          <div class="bg-primary/10 border border-primary/20 rounded-DEFAULT p-space-sm flex flex-col gap-1">
+            <span class="font-label-sm text-label-sm text-primary font-bold">🌿 Plain-bellied Water Snake (Harmless)</span>
+            <ul class="text-xs text-on-surface list-disc pl-4 space-y-1">
+              <li>Swims submerged with just head poking out</li>
+              <li>Round, friendly pupils</li>
+              <li>Vertical black bars on lip scales</li>
+              <li>Plain orange/yellow unpatterned belly</li>
+            </ul>
+          </div>
+          <div class="bg-secondary/10 border border-secondary/20 rounded-DEFAULT p-space-sm flex flex-col gap-1">
+            <span class="font-label-sm text-label-sm text-secondary font-bold">⚠️ Cottonmouth Viper (Venomous)</span>
+            <ul class="text-xs text-on-surface list-disc pl-4 space-y-1">
+              <li>Swims high and buoyant on surface like a pool noodle</li>
+              <li>Vertical cat-like slit pupils</li>
+              <li>Dark bandit mask across eyes</li>
+              <li>Flashes bright white mouth lining when startled</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coral Snake Rhyme Box -->
+      <div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-xs border-l-4 border-secondary">
+        <span class="font-label-sm text-label-sm text-secondary font-bold uppercase">Texas Coral Snake Rhyme</span>
+        <p class="font-headline-sm text-on-surface italic">"Red touch yellow, kill a fellow; Red touch black, friend of Jack!"</p>
+        <span class="font-body-sm text-body-sm text-on-surface-variant">Harmless Texas scarlet snakes have red touching black bands, while venomous Texas coral snakes have red touching yellow bands. Always admire both from a safe distance!</span>
+      </div>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- VIEW 4: MY LOG & EXPLORER XP               -->
+    <!-- ========================================== -->
+    <div id="view-log" class="hidden flex flex-col w-full px-gutter-mobile gap-space-md">
+      
+      <!-- Profile Header Card -->
+      <div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-sm">
+        <div class="flex items-center gap-space-md">
+          <img class="w-16 h-16 rounded-full object-cover ring-4 ring-primary-container" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFsE_iPQfBlXMajfg5GjlH_0ExUm08boFhd-JuFVSvk7mbn8xEocsQWfOYLov2QA3ZDSsHruwe9xSqV57E9vx7QiiOFK_N8G8tTVogdVkXsCxG5gsqSHe6ZTEitViNRGjq6P5ZYuVIP8oypmtdppBSHffwSrpU3oS03EYdg4q3mG2GTNvoM9URXPuI8Ye9pcEjSC-5dRyFD8jsOxHh7ct7fO9pW1JPjeRNM2juym2B4IHhR-Ny8si-zg" alt="User Profile"/>
+          <div class="flex flex-col flex-1 min-w-0">
+            <div class="flex items-center justify-between">
+              <span id="log-profile-title" class="font-headline-sm text-on-surface truncate">Junior Naturalist</span>
+              <span id="log-profile-level" class="bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm px-2 py-0.5 rounded-full font-bold">Level 2</span>
+            </div>
+            <span id="log-profile-xp" class="font-display-mobile text-display-mobile leading-tight text-primary font-bold">240 XP</span>
+            <div class="w-full bg-surface-container rounded-full h-2 mt-1 overflow-hidden">
+              <div id="log-xp-progress" class="bg-primary h-full transition-all duration-300" style="width: 48%;"></div>
+            </div>
+            <span id="log-xp-next-level" class="font-label-sm text-[11px] text-on-surface-variant mt-1">240 / 500 XP to Next Rank</span>
+          </div>
+        </div>
+
+        <button id="log-new-sighting-btn" class="w-full mt-2 bg-primary-container text-on-primary font-label-lg text-label-lg py-space-sm px-space-md rounded-full flex items-center justify-center gap-space-xs shadow-[0_4px_0px_#00522d] active:translate-y-1 active:shadow-none transition-all">
+          <span class="material-symbols-outlined text-[22px]">add_a_photo</span>
+          <span>Log New Snake Sighting (+50 XP)</span>
+        </button>
+      </div>
+
+      <!-- Field Sightings Feed -->
+      <section class="flex flex-col gap-space-sm">
+        <div class="flex items-center justify-between px-1">
+          <div class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-primary text-[24px]">auto_stories</span>
+            <h2 class="font-headline-sm text-headline-sm text-on-surface">My Field Log Journal</h2>
+          </div>
+          <span id="log-sightings-count" class="font-label-sm text-label-sm text-on-surface-variant font-bold">3 Logged</span>
+        </div>
+        <div id="log-sightings-list" class="flex flex-col gap-space-sm">
+          <!-- Injected sighting logs -->
+        </div>
+      </section>
+
+      <!-- Badges & Achievements -->
+      <section class="flex flex-col gap-space-sm">
+        <div class="flex items-center gap-space-xs px-1">
+          <span class="material-symbols-outlined text-secondary text-[24px]">military_tech</span>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface">Achievements & Badges</h3>
+        </div>
+        <div id="log-achievements-grid" class="grid grid-cols-2 gap-space-xs">
+          <!-- Injected badges -->
+        </div>
+      </section>
+
+    </div>
+
   </main>
 
-  <!-- Persistent Bottom Navigation Bar -->
-  <nav class="fixed bottom-0 w-full z-50 pb-safe pointer-events-none">
-    <div class="px-gutter-mobile pb-space-sm pt-space-xs pointer-events-auto max-w-md mx-auto">
-      <div class="bg-surface-container-lowest/95 backdrop-blur-xl rounded-full px-space-xs py-space-xs shadow-[0_8px_24px_rgba(0,31,41,0.08)] flex items-center justify-between border border-surface-container">
-        
-        <button onclick="scrollToSection('map-section')" class="nav-tab flex-1 flex flex-col items-center justify-center min-h-[44px] py-space-xs px-space-xxs rounded-full transition-all duration-150 bg-primary-container text-on-primary font-bold shadow-[0_4px_0px_#00522d]" id="nav-explore">
-          <span class="material-symbols-outlined text-[24px]">explore</span>
-          <span class="font-label-sm text-label-sm leading-none mt-1">Explore</span>
-        </button>
+  <!-- ========================================== -->
+  <!-- MODALS & SHEETS                            -->
+  <!-- ========================================== -->
 
-        <button onclick="scrollToSection('breakdown-section')" class="nav-tab flex-1 flex flex-col items-center justify-center min-h-[44px] py-space-xs px-space-xxs rounded-full text-on-surface-variant hover:text-primary transition-all duration-150" id="nav-census">
+  <!-- Species Detail Modal -->
+  <div id="species-detail-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-surface-container-lowest w-full sm:max-w-lg max-h-[85vh] rounded-t-xl sm:rounded-xl overflow-y-auto shadow-2xl flex flex-col">
+      <!-- Modal Header Image -->
+      <div class="relative w-full h-56 bg-surface-container shrink-0">
+        <img id="modal-species-image" class="w-full h-full object-cover" src="" alt=""/>
+        <button data-close-modal class="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+        <span id="modal-species-badge" class="absolute bottom-3 left-3 bg-surface-container text-primary font-label-sm text-label-sm px-2.5 py-1 rounded-full shadow-md font-bold">
+          🌿 Harmless
+        </span>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-space-md flex flex-col gap-space-sm">
+        <div class="flex items-center justify-between">
+          <div class="flex flex-col">
+            <h2 id="modal-species-name" class="font-headline-lg text-headline-lg text-on-surface">Eastern Garter Snake</h2>
+            <span id="modal-species-sci" class="font-body-sm text-body-sm text-on-surface-variant italic">Thamnophis sirtalis</span>
+          </div>
+          <button id="modal-species-audio-btn" class="w-10 h-10 rounded-full bg-surface-container text-tertiary flex items-center justify-center hover:bg-surface-container-high" title="Listen to Species Guide">
+            <span class="material-symbols-outlined text-[22px]">volume_up</span>
+          </button>
+        </div>
+
+        <p id="modal-species-desc" class="font-body-md text-on-surface">Description...</p>
+
+        <!-- Quick Specs Bento -->
+        <div class="grid grid-cols-3 gap-space-xs text-center">
+          <div class="bg-surface-container-low p-space-xs rounded-DEFAULT">
+            <span class="font-label-sm text-on-surface-variant text-[11px] block">Size</span>
+            <span id="modal-species-size" class="font-headline-sm text-primary font-bold text-xs">18-26 in</span>
+          </div>
+          <div class="bg-surface-container-low p-space-xs rounded-DEFAULT">
+            <span class="font-label-sm text-on-surface-variant text-[11px] block">Activity</span>
+            <span id="modal-species-hours" class="font-headline-sm text-tertiary font-bold text-xs">Diurnal</span>
+          </div>
+          <div class="bg-surface-container-low p-space-xs rounded-DEFAULT">
+            <span class="font-label-sm text-on-surface-variant text-[11px] block">Diet</span>
+            <span id="modal-species-diet" class="font-headline-sm text-secondary font-bold text-xs truncate">Worms, Frogs</span>
+          </div>
+        </div>
+
+        <!-- Identification Tips -->
+        <div class="bg-surface-container-low p-space-sm rounded-DEFAULT flex flex-col gap-space-xs">
+          <span class="font-label-sm text-label-sm font-bold text-on-surface">Key Identification Marks</span>
+          <ul id="modal-species-id-tips" class="flex flex-col gap-1"></ul>
+        </div>
+
+        <!-- Kid Fact -->
+        <div class="bg-secondary-fixed/30 border border-secondary-fixed p-space-sm rounded-DEFAULT flex items-start gap-space-xs">
+          <span class="material-symbols-outlined text-secondary text-[22px] shrink-0">lightbulb</span>
+          <div class="flex flex-col">
+            <span class="font-label-sm text-label-sm font-bold text-secondary">Detective Fact</span>
+            <span id="modal-species-fact" class="font-body-sm text-body-sm text-on-surface">Fun fact here...</span>
+          </div>
+        </div>
+
+        <button id="modal-species-log-btn" class="w-full bg-primary-container text-on-primary font-label-lg text-label-lg py-space-sm px-space-md rounded-full flex items-center justify-center gap-space-xs shadow-[0_4px_0px_#00522d] active:translate-y-1 transition-all mt-1">
+          <span class="material-symbols-outlined text-[20px]">add_a_photo</span>
+          <span>Log Sighting of this Snake</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Log Sighting Modal -->
+  <div id="log-sighting-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-surface-container-lowest w-full sm:max-w-lg max-h-[90vh] rounded-t-xl sm:rounded-xl overflow-y-auto shadow-2xl flex flex-col p-space-md">
+      <div class="flex items-center justify-between pb-space-sm border-b border-surface-container">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-[24px]">photo_camera</span>
+          <h2 class="font-headline-lg text-on-surface">Log a Snake Sighting</h2>
+        </div>
+        <button data-close-modal class="w-8 h-8 rounded-full hover:bg-surface-container flex items-center justify-center">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <form id="log-sighting-form" class="flex flex-col gap-space-sm mt-space-sm">
+        <div class="flex flex-col gap-1">
+          <label class="font-label-sm text-on-surface font-bold">Which Snake Did You See?</label>
+          <select id="log-species-select" class="w-full p-2.5 bg-surface-container-low rounded-DEFAULT font-body-sm text-on-surface border-none focus:ring-2 focus:ring-primary"></select>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label class="font-label-sm text-on-surface font-bold">Location / Trail</label>
+          <input id="log-location-input" type="text" placeholder="e.g. Barton Creek Twin Falls" class="w-full p-2.5 bg-surface-container-low rounded-DEFAULT font-body-sm text-on-surface border-none focus:ring-2 focus:ring-primary"/>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label class="font-label-sm text-on-surface font-bold">Habitat Zone</label>
+          <select id="log-habitat-select" class="w-full p-2.5 bg-surface-container-low rounded-DEFAULT font-body-sm text-on-surface border-none focus:ring-2 focus:ring-primary">
+            <option value="creek">💧 Creek Edges & Water</option>
+            <option value="rocks">☀️ Sunny Limestone Rocks</option>
+            <option value="canopy">🌳 Tree Branches / Logs</option>
+            <option value="leaf_litter">🍂 Leaf Litter & Soil</option>
+          </select>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label class="font-label-sm text-on-surface font-bold">Field Observation Notes</label>
+          <textarea id="log-notes-input" rows="3" placeholder="What was it doing? Was it swimming, basking, climbing, or hiding?" class="w-full p-2.5 bg-surface-container-low rounded-DEFAULT font-body-sm text-on-surface border-none focus:ring-2 focus:ring-primary"></textarea>
+        </div>
+
+        <!-- Photo Upload Preview -->
+        <div class="flex flex-col gap-1">
+          <label class="font-label-sm text-on-surface font-bold">Attach Photo (Optional)</label>
+          <input id="log-photo-input" type="file" accept="image/*" class="font-body-sm text-xs text-on-surface-variant"/>
+          <img id="log-photo-preview" class="hidden w-full h-36 object-cover rounded-DEFAULT mt-2 border border-surface-container" src="" alt="Preview"/>
+        </div>
+
+        <button type="submit" class="w-full bg-primary-container text-on-primary font-label-lg text-label-lg py-space-sm px-space-md rounded-full flex items-center justify-center gap-space-xs shadow-[0_4px_0px_#00522d] active:translate-y-1 transition-all mt-2">
+          <span class="material-symbols-outlined text-[20px]">save</span>
+          <span>Save Sighting (+50 XP)</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Location Picker Modal -->
+  <div id="location-picker-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-surface-container-lowest w-full sm:max-w-md max-h-[85vh] rounded-t-xl sm:rounded-xl overflow-y-auto shadow-2xl flex flex-col p-space-md">
+      <div class="flex items-center justify-between pb-space-sm border-b border-surface-container">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-[24px]">map</span>
+          <h2 class="font-headline-lg text-on-surface">Select Census Area</h2>
+        </div>
+        <button data-close-modal class="w-8 h-8 rounded-full hover:bg-surface-container flex items-center justify-center">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+      <div id="location-picker-list" class="flex flex-col gap-space-xs mt-space-sm">
+        <!-- Injected locations -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Micro Interaction Toast Confirmation -->
+  <div id="share-toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface px-space-md py-space-xs rounded-full font-label-sm text-label-sm shadow-xl flex items-center gap-space-xs opacity-0 pointer-events-none transition-opacity duration-300 z-50 max-w-[90vw] text-center">
+    <span class="material-symbols-outlined text-inverse-primary text-[18px]">verified</span>
+    <span>Census Link Copied! Ready for your science group 🦎</span>
+  </div>
+
+  <!-- Fixed Bottom Navigation -->
+  <nav class="fixed bottom-0 w-full z-40 pb-safe pointer-events-none">
+    <div class="px-gutter-mobile pb-space-sm pt-space-xs pointer-events-auto">
+      <div class="bg-surface-container-lowest/95 backdrop-blur-xl rounded-full px-space-xs py-space-xs shadow-[0_8px_24px_rgba(0,31,41,0.08)] flex items-center justify-between">
+        
+        <a class="flex-1 flex flex-col items-center justify-center min-h-[44px] py-space-xs px-space-xxs rounded-full text-on-surface-variant hover:text-primary transition-all duration-150" data-path="explore" href="#explore">
+          <span class="material-symbols-outlined text-[24px]">travel_explore</span>
+          <span class="font-label-sm text-label-sm leading-none mt-1">Explore</span>
+        </a>
+
+        <a aria-current="page" class="flex-1 flex flex-col items-center justify-center min-h-[44px] py-space-xs px-space-xxs rounded-full transition-all duration-150 bg-primary-container text-on-primary font-bold shadow-[0_4px_0px_#00522d]" data-path="area-census" href="#area-census">
           <span class="material-symbols-outlined text-[24px]">pie_chart</span>
           <span class="font-label-sm text-label-sm leading-none mt-1">Census</span>
-        </button>
+        </a>
 
-        <button onclick="alert('Field Guide feature coming soon!')" class="nav-tab flex-1 flex flex-col items-center justify-center min-h-[44px] py-space-xs px-space-xxs rounded-full text-on-surface-variant hover:text-primary transition-all duration-150" id="nav-guide">
+        <a class="flex-1 flex flex-col items-center justify-center min-h-[44px] py-space-xs px-space-xxs rounded-full text-on-surface-variant hover:text-primary transition-all duration-150" data-path="field-guide" href="#field-guide">
           <span class="material-symbols-outlined text-[24px]">menu_book</span>
           <span class="font-label-sm text-label-sm leading-none mt-1">Guide</span>
-        </button>
+        </a>
 
-        <button onclick="alert('My Log feature coming soon!')" class="nav-tab flex-1 flex flex-col items-center justify-center min-h-[44px] py-space-xs px-space-xxs rounded-full text-on-surface-variant hover:text-primary transition-all duration-150" id="nav-log">
+        <a class="flex-1 flex flex-col items-center justify-center min-h-[44px] py-space-xs px-space-xxs rounded-full text-on-surface-variant hover:text-primary transition-all duration-150" data-path="my-log" href="#my-log">
           <span class="material-symbols-outlined text-[24px]">auto_stories</span>
           <span class="font-label-sm text-label-sm leading-none mt-1">My Log</span>
-        </button>
+        </a>
 
       </div>
     </div>
   </nav>
 
-  <!-- ======================================================== -->
-  <!-- APPLICATION LOGIC & LIVE INATURALIST INTEGRATION        -->
-  <!-- ======================================================== -->
-  <script>
-    // State
-    let currentLat = 37.424;
-    let currentLng = -122.068;
-    let currentRadiusMiles = 5;
-    let currentPlaceName = "Google Mountain View Campus";
-    let map = null;
-    let radiusCircle = null;
-    let centerMarker = null;
-    let observationMarkersLayer = null;
-    let currentSpeciesData = [];
-    let activeFilter = 'all';
-
-    const SEGMENT_COLORS = [
-      'bg-primary',             // #006a3b (Forest green)
-      'bg-tertiary-container',  // #027cb0 (Ocean blue)
-      'bg-secondary-container', // #ffab69 (Warm orange)
-      'bg-primary-fixed-dim',   // #7ed99e (Mint green)
-      'bg-secondary',           // #8e4e14 (Earthy brown)
-      'bg-tertiary',            // #00628c (Deep teal)
-      'bg-outline'              // #6f7a70 (Slate grey)
-    ];
-
-    // Check if taxon is venomous (Pit vipers, rattlesnakes, copperheads, coral snakes)
-    function isVenomous(taxon) {
-      if (!taxon) return false;
-      const ancestors = taxon.ancestor_ids || [];
-      // Viperidae: 30667, Elapidae: 30403
-      if (ancestors.includes(30667) || ancestors.includes(30403) || taxon.id === 30667 || taxon.id === 30403) {
-        return true;
-      }
-      const name = (taxon.name || "").toLowerCase();
-      const common = (taxon.preferred_common_name || "").toLowerCase();
-      return (
-        common.includes("rattlesnake") ||
-        common.includes("copperhead") ||
-        common.includes("cottonmouth") ||
-        common.includes("coral snake") ||
-        common.includes("viper") ||
-        name.includes("crotalus") ||
-        name.includes("agkistrodon") ||
-        name.includes("micrurus") ||
-        name.includes("sistrurus")
-      );
-    }
-
-    // Initialize Leaflet Map
-    function initMap() {
-      map = L.map('map', {
-        zoomControl: false,
-        attributionControl: false
-      }).setView([currentLat, currentLng], 12);
-
-      // Add CartoDB Voyager tiles (clean, soft colors matching M3)
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        maxZoom: 19,
-        subdomains: 'abcd',
-      }).addTo(map);
-
-      // Layer group for observation markers
-      observationMarkersLayer = L.layerGroup().addTo(map);
-
-      // Add center marker and radius circle
-      updateMapGeometry();
-
-      // Click to survey another area
-      map.on('click', function(e) {
-        currentLat = e.latlng.lat;
-        currentLng = e.latlng.lng;
-        currentPlaceName = `Selected Area (${currentLat.toFixed(3)}, ${currentLng.toFixed(3)})`;
-        
-        // Reset preset buttons styling
-        document.querySelectorAll('.preset-btn').forEach(b => {
-          b.className = 'preset-btn bg-surface-container-high text-on-surface font-label-sm text-label-sm px-space-sm py-1 rounded-full whitespace-nowrap active:translate-y-0.5 transition-all flex items-center gap-1';
-        });
-
-        updateMapGeometry();
-        fetchCensusData();
-      });
-    }
-
-    function updateMapGeometry() {
-      const radiusMeters = currentRadiusMiles * 1609.34;
-
-      if (radiusCircle) {
-        radiusCircle.setLatLng([currentLat, currentLng]);
-        radiusCircle.setRadius(radiusMeters);
-      } else {
-        radiusCircle = L.circle([currentLat, currentLng], {
-          radius: radiusMeters,
-          color: '#006a3b',
-          weight: 2,
-          fillColor: '#268451',
-          fillOpacity: 0.12,
-          dashArray: '4, 6'
-        }).addTo(map);
-      }
-
-      if (centerMarker) {
-        centerMarker.setLatLng([currentLat, currentLng]);
-      } else {
-        const centerIcon = L.divIcon({
-          className: 'custom-center-marker',
-          html: `<div style="background:#006a3b; color:#fff; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; box-shadow:0 3px 8px rgba(0,0,0,0.3); border:2px solid #fff;">🔍</div>`,
-          iconSize: [32, 32],
-          iconAnchor: [16, 16]
-        });
-        centerMarker = L.marker([currentLat, currentLng], { icon: centerIcon }).addTo(map);
-      }
-
-      map.setView([currentLat, currentLng], getZoomForRadius(currentRadiusMiles));
-    }
-
-    function getZoomForRadius(miles) {
-      if (miles <= 5) return 12;
-      if (miles <= 10) return 11;
-      return 10;
-    }
-
-    function setRadius(miles) {
-      currentRadiusMiles = miles;
-      [5, 10, 25].forEach(r => {
-        const btn = document.getElementById(`rad-${r}`);
-        if (r === miles) {
-          btn.className = "rad-btn px-2 py-0.5 rounded-full bg-primary text-on-primary font-bold";
-        } else {
-          btn.className = "rad-btn px-2 py-0.5 rounded-full bg-surface-container text-on-surface";
-        }
-      });
-      updateMapGeometry();
-      fetchCensusData();
-    }
-
-    function jumpToPreset(lat, lng, name, radiusMiles) {
-      currentLat = lat;
-      currentLng = lng;
-      currentPlaceName = name;
-      currentRadiusMiles = radiusMiles || 5;
-
-      // Update preset buttons styling
-      const buttons = document.querySelectorAll('.preset-btn');
-      buttons.forEach(b => {
-        if (b.innerText.includes(name.split(' ')[0])) {
-          b.className = 'preset-btn bg-primary-container text-on-primary font-label-sm text-label-sm px-space-sm py-1 rounded-full whitespace-nowrap shadow-[0_2px_0px_#00522d] active:translate-y-0.5 transition-all flex items-center gap-1';
-        } else {
-          b.className = 'preset-btn bg-surface-container-high text-on-surface font-label-sm text-label-sm px-space-sm py-1 rounded-full whitespace-nowrap active:translate-y-0.5 transition-all flex items-center gap-1';
-        }
-      });
-
-      updateMapGeometry();
-      fetchCensusData();
-    }
-
-    function useCurrentLocation() {
-      if (navigator.geolocation) {
-        document.getElementById('map-status-pill').innerText = "Locating you...";
-        navigator.geolocation.getCurrentPosition(
-          pos => {
-            currentLat = pos.coords.latitude;
-            currentLng = pos.coords.longitude;
-            currentPlaceName = "My Current Location";
-            updateMapGeometry();
-            fetchCensusData();
-          },
-          err => {
-            alert("Could not access location. Please tap a location on the map.");
-            document.getElementById('map-status-pill').innerText = "Tap map to move pin";
-          }
-        );
-      } else {
-        alert("Geolocation is not supported by your browser.");
-      }
-    }
-
-    // ========================================================
-    // Fetch Data from iNaturalist API (CORS Supported!)
-    // ========================================================
-    async function fetchCensusData() {
-      const radiusKm = Math.round(currentRadiusMiles * 1.60934);
-
-      // Show loading UI
-      document.getElementById('live-text').innerText = "Searching iNaturalist...";
-      document.getElementById('live-dot').className = "w-2 h-2 rounded-full bg-secondary animate-ping";
-      document.getElementById('species-cards-container').innerHTML = `
-        <div class="w-full bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex items-center justify-center gap-2 py-10 text-on-surface-variant">
-          <span class="material-symbols-outlined text-primary text-2xl animate-spin">sync</span>
-          <span class="font-label-md text-label-md">Surveying local snakes in radius...</span>
-        </div>
-      `;
-
-      try {
-        // 1. Fetch Species Counts (Ranked breakdown)
-        const countsUrl = `https://api.inaturalist.org/v1/observations/species_counts?taxon_id=85553&lat=${currentLat}&lng=${currentLng}&radius=${radiusKm}&quality_grade=research`;
-        const countsRes = await fetch(countsUrl);
-        const countsData = await countsRes.json();
-
-        // 2. Fetch Recent Observations for Map Pins
-        const obsUrl = `https://api.inaturalist.org/v1/observations?taxon_id=85553&lat=${currentLat}&lng=${currentLng}&radius=${radiusKm}&photos=true&per_page=30&order_by=observed_on&order=desc`;
-        const obsRes = await fetch(obsUrl);
-        const obsData = await obsRes.json();
-
-        renderCensus(countsData, obsData);
-      } catch (err) {
-        console.error("Error fetching iNaturalist data:", err);
-        document.getElementById('live-text').innerText = "Network Error";
-        document.getElementById('species-cards-container').innerHTML = `
-          <div class="w-full bg-error-container text-on-error-container rounded-lg p-space-md">
-            Failed to connect to iNaturalist API. Please check your internet connection.
-          </div>
-        `;
-      }
-    }
-
-    function renderCensus(countsData, obsData) {
-      document.getElementById('live-text').innerText = "Live iNaturalist Data";
-      document.getElementById('live-dot').className = "w-2 h-2 rounded-full bg-primary-container animate-ping";
-
-      const totalSpecies = countsData.total_results || 0;
-      const speciesList = countsData.results || [];
-      currentSpeciesData = speciesList;
-
-      // Extract observation place name if available
-      if (obsData.results && obsData.results.length > 0 && !currentPlaceName.includes("Campus") && !currentPlaceName.includes("Barton") && !currentPlaceName.includes("Yosemite") && !currentPlaceName.includes("Phoenix")) {
-        const firstGuess = obsData.results[0].place_guess;
-        if (firstGuess) {
-          currentPlaceName = firstGuess.split(',')[0];
-        }
-      }
-
-      // Update Header & Bento Counters
-      document.getElementById('current-location-chip').innerText = `${currentPlaceName} • ${currentRadiusMiles}-Mile Radius`;
-      document.getElementById('census-title').innerText = `${currentPlaceName} Census`;
-      document.getElementById('species-count-stat').innerText = totalSpecies;
-      document.getElementById('species-badge-count').innerText = `${totalSpecies} Types`;
-
-      // Calculate total observation count across species
-      let totalObservations = 0;
-      let harmlessObs = 0;
-      let cautionObs = 0;
-
-      speciesList.forEach(item => {
-        const count = item.count || 0;
-        totalObservations += count;
-        if (isVenomous(item.taxon)) {
-          cautionObs += count;
-        } else {
-          harmlessObs += count;
-        }
-      });
-
-      document.getElementById('observations-count-stat').innerText = `~${totalObservations}`;
-
-      // Harmless vs Caution Proportions
-      const harmlessPct = totalObservations > 0 ? Math.round((harmlessObs / totalObservations) * 100) : 100;
-      const cautionPct = totalObservations > 0 ? Math.round((cautionObs / totalObservations) * 100) : 0;
-
-      document.getElementById('harmless-stat').innerText = `🌿 ${harmlessPct}% Harmless Helpers`;
-      document.getElementById('caution-stat').innerText = `⚠️ ${cautionPct}% Watch From Afar`;
-
-      // Render Caterpillar Progress Bar
-      renderCaterpillar(speciesList, totalObservations);
-
-      // Render Species Cards
-      renderSpeciesCards(speciesList, totalObservations);
-
-      // Render Map Pins
-      renderMapPins(obsData.results || []);
-    }
-
-    function renderCaterpillar(speciesList, totalObservations) {
-      const bar = document.getElementById('caterpillar-bar');
-      if (!speciesList || speciesList.length === 0 || totalObservations === 0) {
-        bar.innerHTML = `<div class="h-full bg-surface-container-high rounded-full w-full flex items-center justify-center text-xs text-on-surface-variant">No sightings in this zone</div>`;
-        return;
-      }
-
-      let html = '';
-      const topFive = speciesList.slice(0, 5);
-      let accountedPct = 0;
-
-      topFive.forEach((item, idx) => {
-        const pct = Math.max(1, Math.round((item.count / totalObservations) * 100));
-        accountedPct += pct;
-        const color = isVenomous(item.taxon) ? 'bg-secondary' : SEGMENT_COLORS[idx % SEGMENT_COLORS.length];
-        const name = item.taxon.preferred_common_name || item.taxon.name;
-        html += `
-          <div class="h-full ${color} transition-all duration-300 relative group cursor-pointer" 
-               style="width: ${pct}%;" 
-               title="${name} (${pct}%)">
-          </div>
-        `;
-      });
-
-      // Remainder segment
-      const remainderPct = 100 - accountedPct;
-      if (remainderPct > 2) {
-        html += `
-          <div class="h-full bg-outline-variant transition-all duration-300 relative group" 
-               style="width: ${remainderPct}%;" 
-               title="Other Species (${remainderPct}%)">
-          </div>
-        `;
-      }
-
-      bar.innerHTML = html;
-    }
-
-    function renderSpeciesCards(speciesList, totalObservations) {
-      const container = document.getElementById('species-cards-container');
-      if (!speciesList || speciesList.length === 0) {
-        container.innerHTML = `
-          <div class="w-full bg-surface-container-lowest rounded-lg p-space-md shadow-sm text-center text-on-surface-variant">
-            <span class="text-3xl block mb-2">🔍</span>
-            <p class="font-headline-sm text-headline-sm text-on-surface">No snake records found in this radius</p>
-            <p class="font-body-sm text-body-sm mt-1">Try expanding the search radius to 10 or 25 miles, or selecting a nature reserve or canyon!</p>
-          </div>
-        `;
-        return;
-      }
-
-      let html = '';
-      speciesList.forEach((item, idx) => {
-        const t = item.taxon || {};
-        const count = item.count || 0;
-        const pct = totalObservations > 0 ? Math.round((count / totalObservations) * 100) : 0;
-        const commonName = t.preferred_common_name || t.name;
-        const sciName = t.name;
-        const venomous = isVenomous(t);
-        const photoUrl = t.default_photo ? t.default_photo.medium_url : 'https://images.unsplash.com/photo-1531386151447-fd76ad50012f?w=400&auto=format&fit=crop&q=80';
-
-        const categoryClass = venomous ? 'caution' : 'harmless';
-        const badgeHtml = venomous
-          ? `<span class="bg-secondary text-on-secondary font-label-sm text-label-sm px-2 py-0.5 rounded-full flex items-center gap-1 font-bold"><span class="material-symbols-outlined text-[14px]">warning</span> Caution: Venomous</span>`
-          : `<span class="bg-surface-container text-primary font-label-sm text-label-sm px-2 py-0.5 rounded-full flex items-center gap-1 font-bold"><span class="material-symbols-outlined text-[14px]">eco</span> 100% Harmless</span>`;
-
-        const behaviorNote = venomous
-          ? `Observe from at least 6 feet away • Keep pets on leash`
-          : `Beneficial rodent and pest eater • Safe neighbor`;
-
-        html += `
-          <div class="species-card ${categoryClass} w-full bg-surface-container-lowest rounded-lg p-space-sm shadow-sm flex flex-col gap-space-xs transition-all hover:shadow-md border border-transparent hover:border-surface-container" data-type="${categoryClass}">
-            <div class="flex items-center gap-space-sm">
-              <img class="w-20 h-20 rounded-DEFAULT object-cover shrink-0 bg-surface-container" 
-                   src="${photoUrl}" 
-                   alt="${commonName}" 
-                   loading="lazy"
-                   onerror="this.src='https://images.unsplash.com/photo-1531386151447-fd76ad50012f?w=400&auto=format&fit=crop&q=80'"/>
-              <div class="flex flex-col flex-1 min-w-0">
-                <div class="flex items-center justify-between gap-1">
-                  <span class="font-headline-sm text-headline-sm text-on-surface truncate">${commonName}</span>
-                  <span class="font-headline-sm text-headline-sm ${venomous ? 'text-secondary' : 'text-primary'} font-bold shrink-0">${pct > 0 ? pct + '%' : '<1%'}</span>
-                </div>
-                <span class="font-body-sm text-body-sm text-on-surface-variant italic truncate">${sciName}</span>
-                <div class="flex flex-wrap items-center gap-1 mt-1">
-                  ${badgeHtml}
-                  <span class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full font-bold">
-                    ${count} ${count === 1 ? 'sighting' : 'sightings'}
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div class="flex items-center justify-between bg-surface-container-low rounded-DEFAULT px-space-sm py-1 text-on-surface-variant">
-              <span class="font-body-sm text-body-sm flex items-center gap-1 text-[13px]">
-                <span class="material-symbols-outlined text-[16px] ${venomous ? 'text-secondary' : 'text-primary'}">${venomous ? 'visibility' : 'check_circle'}</span>
-                ${behaviorNote}
-              </span>
-              <a href="https://www.inaturalist.org/taxa/${t.id}" target="_blank" rel="noopener" class="font-label-sm text-label-sm font-bold text-tertiary hover:underline flex items-center gap-0.5 shrink-0">
-                Wiki <span class="material-symbols-outlined text-[14px]">open_in_new</span>
-              </a>
-            </div>
-          </div>
-        `;
-      });
-
-      container.innerHTML = html;
-      applyActiveFilter();
-    }
-
-    function renderMapPins(observations) {
-      observationMarkersLayer.clearLayers();
-
-      observations.forEach(obs => {
-        const coords = obs.geojson ? obs.geojson.coordinates : null;
-        if (!coords || coords.length < 2) return;
-        const [lng, lat] = coords;
-
-        const t = obs.taxon || {};
-        const commonName = t.preferred_common_name || t.name || 'Snake';
-        const venomous = isVenomous(t);
-        const photo = (obs.photos && obs.photos.length > 0)
-          ? obs.photos[0].url.replace('square', 'medium')
-          : (t.default_photo ? t.default_photo.medium_url : null);
-
-        const markerColor = venomous ? '#8e4e14' : '#006a3b';
-        const markerEmoji = venomous ? '⚠️' : '🐍';
-
-        const customIcon = L.divIcon({
-          className: 'custom-snake-marker',
-          html: `<div style="background:${markerColor}; color:#fff; width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; border:2px solid #fff; box-shadow:0 2px 5px rgba(0,0,0,0.25);">${markerEmoji}</div>`,
-          iconSize: [26, 26],
-          iconAnchor: [13, 13]
-        });
-
-        const marker = L.marker([lat, lng], { icon: customIcon });
-
-        // Rich popup
-        const photoTag = photo
-          ? `<img src="${photo}" class="w-full h-28 object-cover rounded-DEFAULT mb-2" alt="${commonName}"/>`
-          : '';
-
-        marker.bindPopup(`
-          <div class="flex flex-col text-on-surface" style="width: 180px;">
-            ${photoTag}
-            <span class="font-bold text-sm text-on-surface leading-tight">${commonName}</span>
-            <span class="text-xs text-on-surface-variant italic mb-1">${t.name || ''}</span>
-            <div class="flex items-center gap-1 text-[11px] text-on-surface-variant">
-              <span>📅 ${obs.observed_on || 'Observed'}</span>
-            </div>
-            <a href="https://www.inaturalist.org/observations/${obs.id}" target="_blank" rel="noopener" class="text-xs text-primary font-bold mt-1.5 inline-block hover:underline">
-              View Sighting ↗
-            </a>
-          </div>
-        `);
-
-        observationMarkersLayer.addLayer(marker);
-      });
-    }
-
-    // Filter Species by Safety Category
-    function filterSpecies(type, btnElement) {
-      activeFilter = type;
-      const buttons = document.querySelectorAll('.family-btn');
-      buttons.forEach(b => {
-        b.className = 'family-btn bg-surface-container-high text-on-surface font-label-sm text-label-sm px-space-sm py-1.5 rounded-full whitespace-nowrap active:translate-y-0.5 transition-all';
-      });
-      btnElement.className = 'family-btn bg-primary-container text-on-primary font-label-sm text-label-sm px-space-sm py-1.5 rounded-full whitespace-nowrap shadow-[0_3px_0px_#00522d] active:translate-y-0.5 transition-all';
-
-      applyActiveFilter();
-    }
-
-    function applyActiveFilter() {
-      const cards = document.querySelectorAll('.species-card');
-      cards.forEach(card => {
-        if (activeFilter === 'all' || card.dataset.type === activeFilter) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    }
-
-    function scrollToSection(id) {
-      const el = document.getElementById(id);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-      // Update nav styles
-      document.querySelectorAll('.nav-tab').forEach(t => {
-        t.className = 'nav-tab flex-1 flex flex-col items-center justify-center min-h-[44px] py-space-xs px-space-xxs rounded-full text-on-surface-variant hover:text-primary transition-all duration-150';
-      });
-      if (id === 'map-section') {
-        document.getElementById('nav-explore').className = 'nav-tab flex-1 flex flex-col items-center justify-center min-h-[44px] py-space-xs px-space-xxs rounded-full transition-all duration-150 bg-primary-container text-on-primary font-bold shadow-[0_4px_0px_#00522d]';
-      } else {
-        document.getElementById('nav-census').className = 'nav-tab flex-1 flex flex-col items-center justify-center min-h-[44px] py-space-xs px-space-xxs rounded-full transition-all duration-150 bg-primary-container text-on-primary font-bold shadow-[0_4px_0px_#00522d]';
-      }
-    }
-
-    function refreshData() {
-      fetchCensusData();
-    }
-
-    function triggerShareModal() {
-      const toast = document.getElementById('share-toast');
-      if (toast) {
-        toast.classList.remove('opacity-0', 'pointer-events-none');
-        toast.classList.add('opacity-100');
-        setTimeout(() => {
-          toast.classList.remove('opacity-100');
-          toast.classList.add('opacity-0', 'pointer-events-none');
-        }, 2500);
-      }
-    }
-
-    // Run on startup
-    window.addEventListener('DOMContentLoaded', () => {
-      initMap();
-      fetchCensusData();
-    });
-  </script>
+  <!-- Main JavaScript Application Module -->
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>
