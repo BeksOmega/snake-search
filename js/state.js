@@ -2,6 +2,7 @@
  * SlitherScope - State Management & LocalStorage Persistence
  */
 import { SPECIES_DATA, LOCATIONS_DATA, ACHIEVEMENTS, SAMPLE_LOGS, DETECTIVE_TIPS } from './data.js';
+import { resolveSpeciesImage } from './media.js';
 
 const STORAGE_KEYS = {
   LOCATION: 'slitherscope_location_v1',
@@ -27,17 +28,23 @@ class AppState {
   }
 
   init() {
+    const storage = typeof localStorage !== 'undefined' ? localStorage : null;
+
     // Load or initialize location
-    const savedLocation = localStorage.getItem(STORAGE_KEYS.LOCATION);
+    const savedLocation = storage ? storage.getItem(STORAGE_KEYS.LOCATION) : null;
     this.currentLocationId = savedLocation && LOCATIONS_DATA.some(l => l.id === savedLocation)
       ? savedLocation
       : 'barton-creek';
 
     // Load or initialize logs
-    const savedLogs = localStorage.getItem(STORAGE_KEYS.LOGS);
+    const savedLogs = storage ? storage.getItem(STORAGE_KEYS.LOGS) : null;
     if (savedLogs) {
       try {
-        this.sightingLogs = JSON.parse(savedLogs);
+        const parsed = JSON.parse(savedLogs);
+        this.sightingLogs = parsed.map(log => ({
+          ...log,
+          photoUrl: resolveSpeciesImage({ photoUrl: log.photoUrl, speciesId: log.speciesId, speciesList: SPECIES_DATA })
+        }));
       } catch (e) {
         this.sightingLogs = [...SAMPLE_LOGS];
       }
@@ -47,7 +54,7 @@ class AppState {
     }
 
     // Load or initialize profile
-    const savedProfile = localStorage.getItem(STORAGE_KEYS.PROFILE);
+    const savedProfile = storage ? storage.getItem(STORAGE_KEYS.PROFILE) : null;
     if (savedProfile) {
       try {
         this.profile = JSON.parse(savedProfile);
@@ -60,7 +67,7 @@ class AppState {
     }
 
     // Load or initialize achievements
-    const savedAchievements = localStorage.getItem(STORAGE_KEYS.ACHIEVEMENTS);
+    const savedAchievements = storage ? storage.getItem(STORAGE_KEYS.ACHIEVEMENTS) : null;
     if (savedAchievements) {
       try {
         this.unlockedBadgeIds = JSON.parse(savedAchievements);
@@ -74,15 +81,21 @@ class AppState {
   }
 
   saveLogs() {
-    localStorage.setItem(STORAGE_KEYS.LOGS, JSON.stringify(this.sightingLogs));
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(STORAGE_KEYS.LOGS, JSON.stringify(this.sightingLogs));
+    }
   }
 
   saveProfile() {
-    localStorage.setItem(STORAGE_KEYS.PROFILE, JSON.stringify(this.profile));
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(STORAGE_KEYS.PROFILE, JSON.stringify(this.profile));
+    }
   }
 
   saveAchievements() {
-    localStorage.setItem(STORAGE_KEYS.ACHIEVEMENTS, JSON.stringify(this.unlockedBadgeIds));
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(STORAGE_KEYS.ACHIEVEMENTS, JSON.stringify(this.unlockedBadgeIds));
+    }
   }
 
   subscribe(callback) {
@@ -261,7 +274,7 @@ class AppState {
   addSightingLog({ speciesId, customSpeciesName, location, habitat, notes, photoUrl }) {
     const species = speciesId ? this.getSpeciesById(speciesId) : null;
     const name = species ? species.name : (customSpeciesName || 'Unknown Snake');
-    const image = photoUrl || (species ? species.imageUrl : 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=600&q=80');
+    const image = resolveSpeciesImage({ photoUrl, species, speciesId, speciesList: SPECIES_DATA });
 
     const newLog = {
       id: 'log-' + Date.now(),
