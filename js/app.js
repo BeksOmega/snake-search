@@ -1,3 +1,4 @@
+import { SnakeMapController } from './map.js';
 /**
  * SlitherScope - Main Application Controller
  * Handles UI rendering, hash routing, modal interactions, speech synthesis, and events.
@@ -13,6 +14,7 @@ class SlitherScopeApp {
     this.initElements();
     this.bindEvents();
     this.initRouter();
+    this.snakeMap = new SnakeMapController();
     this.render();
 
     // Subscribe to state changes
@@ -169,7 +171,12 @@ class SlitherScopeApp {
     });
 
     // Re-render active tab content
-    if (tabName === 'area-census') this.renderCensus();
+    if (tabName === 'area-census') {
+      this.renderCensus();
+      if (this.snakeMap && this.snakeMap.map) {
+        setTimeout(() => this.snakeMap.map.invalidateSize(), 150);
+      }
+    }
     else if (tabName === 'explore') this.renderExplore();
     else if (tabName === 'field-guide') this.renderGuide();
     else if (tabName === 'my-log') this.renderLog();
@@ -1012,4 +1019,21 @@ class SlitherScopeApp {
 // Initialize on DOM load
 window.addEventListener('DOMContentLoaded', () => {
   window.slitherApp = new SlitherScopeApp();
-});
+  if (window.slitherApp.snakeMap) {
+    window.slitherApp.snakeMap.init();
+  }
+
+  // Map Controller Delegations
+  jumpToPreset(lat, lng, name, radius) {
+    if (this.snakeMap) this.snakeMap.jumpToPreset(lat, lng, name, radius);
+  }
+
+  setRadius(miles) {
+    if (this.snakeMap) this.snakeMap.setRadius(miles);
+  }
+
+  useCurrentLocation() {
+    if (this.snakeMap) this.snakeMap.useCurrentLocation();
+  }
+}
+
