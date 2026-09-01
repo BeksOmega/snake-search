@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&amp;family=Quicksand:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,600,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#f3faff;}body{overscroll-behavior:none;font-family:'Nunito Sans',sans-serif;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-container": "#d8f2ff", "on-error-container": "#93000a", "on-primary": "#ffffff", "error-container": "#ffdad6", "on-primary-fixed-variant": "#00522d", "surface-container-lowest": "#ffffff", "secondary-fixed-dim": "#ffb780", "tertiary-container": "#027cb0", "inverse-on-surface": "#dff4ff", "on-secondary-fixed": "#2f1400", "on-secondary-fixed-variant": "#6f3800", "background": "#f3faff", "tertiary": "#00628c", "inverse-primary": "#7ed99e", "on-tertiary-container": "#fcfcff", "surface-variant": "#c6e8f8", "on-error": "#ffffff", "surface-bright": "#f3faff", "on-primary-container": "#f6fff4", "on-tertiary-fixed-variant": "#004c6d", "primary-fixed": "#9af6b8", "inverse-surface": "#123441", "on-surface": "#001f29", "surface-dim": "#bedfef", "on-primary-fixed": "#00210f", "primary-container": "#268451", "on-surface-variant": "#3f4941", "tertiary-fixed-dim": "#87ceff", "on-secondary-container": "#783d01", "outline-variant": "#becabe", "surface-container-high": "#ccedfe", "surface-container-highest": "#c6e8f8", "surface-container-low": "#e6f6ff", "primary-fixed-dim": "#7ed99e", "on-secondary": "#ffffff", "secondary": "#8e4e14", "surface": "#f3faff", "on-background": "#001f29", "outline": "#6f7a70", "on-tertiary-fixed": "#001e2e", "surface-tint": "#006d3d", "on-tertiary": "#ffffff", "secondary-fixed": "#ffdcc4", "tertiary-fixed": "#c8e6ff", "primary": "#006a3b", "secondary-container": "#ffab69", "error": "#ba1a1a" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "space-xxs": "0.25rem", "space-xs": "0.5rem", "space-xl": "2rem", "gutter-tablet": "1.5rem", "space-md": "1rem", "gutter-mobile": "1rem", "space-3xl": "4rem", "space-2xl": "3rem", "touch-target-min": "3rem", "space-sm": "0.75rem", "space-lg": "1.5rem", "gutter-desktop": "2rem" }, "fontFamily": { "headline-sm": ["Quicksand"], "display-mobile": ["Quicksand"], "headline-lg-mobile": ["Quicksand"], "display": ["Quicksand"], "label-sm": ["Quicksand"], "label-lg": ["Quicksand"], "body-sm": ["Nunito Sans"], "label-md": ["Quicksand"], "body-lg": ["Nunito Sans"], "body-md": ["Nunito Sans"], "headline-lg": ["Quicksand"], "headline-md": ["Quicksand"] }, "fontSize": { "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "display-mobile": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }], "display": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "700" }], "label-lg": ["16px", { "lineHeight": "22px", "letterSpacing": "0.02em", "fontWeight": "700" }], "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "label-md": ["14px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "700" }], "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }], "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-lg": ["30px", { "lineHeight": "38px", "fontWeight": "700" }], "headline-md": ["22px", { "lineHeight": "30px", "fontWeight": "600" }] } } } };</script></head><body class="bg-surface text-on-surface min-h-screen flex flex-col antialiased selection:bg-primary-fixed selection:text-on-primary-fixed"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-gutter-mobile flex items-center justify-between"><div class="flex items-center gap-space-xs"><img alt="SlitherScope Mascot Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkv5xvEg3OoknkzNY1ZgLBPYVnjeN-6lX4m7XMihya-56fMvw-JXf_WNffHg2pfavpEGN26ro9crCMxJOYZOYeLn8AG8hEAc_keB3UpFhjXVYyKS1hKqV0NO5_TOYrmUUhvF0guqnC6ImUcBOZGDWHa8pUl7MbkMfQ589pBaSDPGzg82CoZ81vkbcEjNp1QzSw65nT1INyWNr-D22x5SBAU2EEzPcYPPO_lWimeV91Tvm6ABA3UhHV1A"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary tracking-tight leading-none">SlitherScope</span><span class="font-label-sm text-label-sm text-on-surface-variant font-bold">Area Census</span></div></div><div class="flex items-center gap-space-sm"><div class="h-9 px-space-sm rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center gap-1 shadow-[0_2px_0px_#6f3800]"><span class="material-symbols-outlined text-[18px] text-secondary">workspace_premium</span><span class="font-label-sm text-label-sm font-bold">240 XP</span></div><button aria-label="Explorer Profile" class="w-9 h-9 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center p-0 focus:outline-none"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-primary-container" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFsE_iPQfBlXMajfg5GjlH_0ExUm08boFhd-JuFVSvk7mbn8xEocsQWfOYLov2QA3ZDSsHruwe9xSqV57E9vx7QiiOFK_N8G8tTVogdVkXsCxG5gsqSHe6ZTEitViNRGjq6P5ZYuVIP8oypmtdppBSHffwSrpU3oS03EYdg4q3mG2GTNvoM9URXPuI8Ye9pcEjSC-5dRyFD8jsOxHh7ct7fO9pW1JPjeRNM2juym2B4IHhR-Ny8si-zg"/></button></div></div></header><main class="flex flex-col flex-1 relative w-full pt-16 pb-28 bg-surface"><div class="flex flex-col w-full px-gutter-mobile gap-space-md">
+<!-- Area Banner Header Card -->
+<div class="relative w-full rounded-lg bg-surface-container-low p-space-md shadow-sm overflow-hidden">
+<div class="flex items-center justify-between gap-space-sm mb-space-xs">
+<div class="flex items-center gap-space-xxs text-primary">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary">Austin, Texas • 5-Mile Radius</span>
+</div>
+<span class="inline-flex items-center gap-1 bg-surface-container-highest text-on-surface px-space-xs py-1 rounded-full font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+        Live Area Data
+      </span>
+</div>
+<div class="relative z-10">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Barton Creek Census</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Greenbelt bio-survey for young wildlife detectives</p>
+</div>
+<!-- Quick Stats Bento Strip -->
+<div class="grid grid-cols-2 gap-space-xs mt-space-sm">
+<div class="bg-surface-container-lowest p-space-sm rounded-DEFAULT flex items-center gap-space-xs shadow-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[22px]">diversity_2</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-display-mobile text-display-mobile leading-none text-tertiary font-bold">14</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate">Species Counted</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-sm rounded-DEFAULT flex items-center gap-space-xs shadow-sm">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined text-[22px]">pets</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-display-mobile text-display-mobile leading-none text-secondary font-bold">~340</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate">Local Neighbors</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Species Proportion Breakdown Section -->
+<section class="w-full bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-sm" id="breakdown-section">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Who Lives Here?</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Proportion of local snake families</span>
+</div>
+<button aria-label="Read census audio breakdown" class="w-8 h-8 rounded-full bg-surface-container text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">volume_up</span>
+</button>
+</div>
+<!-- Multi-Segmented Caterpillar Progress Bar -->
+<div class="w-full flex flex-col gap-space-xxs pt-space-xs">
+<div class="h-6 w-full bg-surface-container rounded-full flex overflow-hidden p-0.5 gap-0.5 shadow-inner">
+<!-- 45% Colubrids (Water & Garter) -->
+<div class="h-full bg-primary rounded-l-full transition-all duration-300 relative group" style="width: 45%;" title="Water &amp; Garter (45%)"></div>
+<!-- 30% Rat & Kingsnakes -->
+<div class="h-full bg-tertiary-container transition-all duration-300" style="width: 30%;" title="Rat &amp; Kingsnakes (30%)"></div>
+<!-- 18% Tiny Grass & Ringneck -->
+<div class="h-full bg-secondary-container transition-all duration-300" style="width: 18%;" title="Tiny Bug Eaters (18%)"></div>
+<!-- 7% Pit Vipers -->
+<div class="h-full bg-secondary rounded-r-full transition-all duration-300" style="width: 7%;" title="Pit Vipers (7%)"></div>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm px-1">
+<span>🌿 93% Totally Harmless Helpers</span>
+<span class="text-secondary font-bold">⚠️ 7% Watch From Afar</span>
+</div>
+</div>
+<!-- Interactive Family Filter Chips -->
+<div class="flex gap-space-xs overflow-x-auto pb-space-xxs pt-space-xxs scrollbar-none">
+<button class="family-btn bg-primary-container text-on-primary font-label-sm text-label-sm px-space-sm py-1.5 rounded-full whitespace-nowrap shadow-[0_3px_0px_#00522d] active:translate-y-0.5 transition-all" onclick="filterFamily('all', this)">
+        All Families (100%)
+      </button>
+<button class="family-btn bg-surface-container-high text-on-surface font-label-sm text-label-sm px-space-sm py-1.5 rounded-full whitespace-nowrap active:translate-y-0.5 transition-all" onclick="filterFamily('garter', this)">
+        Water &amp; Garter (45%)
+      </button>
+<button class="family-btn bg-surface-container-high text-on-surface font-label-sm text-label-sm px-space-sm py-1.5 rounded-full whitespace-nowrap active:translate-y-0.5 transition-all" onclick="filterFamily('rat', this)">
+        Rat &amp; Kings (30%)
+      </button>
+<button class="family-btn bg-surface-container-high text-on-surface font-label-sm text-label-sm px-space-sm py-1.5 rounded-full whitespace-nowrap active:translate-y-0.5 transition-all" onclick="filterFamily('tiny', this)">
+        Tiny Bug Eaters (18%)
+      </button>
+<button class="family-btn bg-surface-container-high text-on-surface font-label-sm text-label-sm px-space-sm py-1.5 rounded-full whitespace-nowrap active:translate-y-0.5 transition-all" onclick="filterFamily('viper', this)">
+        Pit Vipers (7%)
+      </button>
+</div>
+<!-- Quick Family Legend Cards -->
+<div class="grid grid-cols-2 gap-space-xs mt-space-xxs">
+<div class="bg-surface-container-low rounded-DEFAULT p-space-xs flex items-start gap-space-xs">
+<div class="w-3 h-3 rounded-full bg-primary mt-1 shrink-0"></div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-label-sm text-on-surface font-bold truncate">Water &amp; Garter (45%)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant leading-tight">Friendly garden pals</span>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-DEFAULT p-space-xs flex items-start gap-space-xs">
+<div class="w-3 h-3 rounded-full bg-tertiary-container mt-1 shrink-0"></div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-label-sm text-on-surface font-bold truncate">Rat &amp; Kings (30%)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant leading-tight">Rodent patrol champions</span>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-DEFAULT p-space-xs flex items-start gap-space-xs">
+<div class="w-3 h-3 rounded-full bg-secondary-container mt-1 shrink-0"></div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-label-sm text-on-surface font-bold truncate">Tiny Bug Hunters (18%)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant leading-tight">Ringneck &amp; grass snakes</span>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-DEFAULT p-space-xs flex items-start gap-space-xs">
+<div class="w-3 h-3 rounded-full bg-secondary mt-1 shrink-0"></div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-label-sm text-on-surface font-bold truncate">Pit Vipers (7%)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant leading-tight">Observe from safe distance</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Detailed Species Proportion Cards List -->
+<section class="w-full flex flex-col gap-space-sm">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[24px]">view_list</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Top Species Sightings</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-bold">5 Major Types</span>
+</div>
+<!-- Species Card 1: Eastern Garter Snake -->
+<div class="species-card garter w-full bg-surface-container-lowest rounded-lg p-space-sm shadow-sm flex flex-col gap-space-xs transition-all" data-family="garter">
+<div class="flex items-center gap-space-sm">
+<img class="w-20 h-20 rounded-DEFAULT object-cover shrink-0" data-alt="A friendly vibrant Eastern Garter Snake resting on a wet river stone at Barton Creek Austin with soft dappled sunshine, bright cheerful nature wildlife macro photography with rich greens and yellow racing stripes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByVUtxIByBunqSKbbi1QnMk_--moKvCoH__Mp123ZSdxAyXNum0arkTJN33j3QlqU2a1KUk2y7J-J7HlDMUdl2F3_kXEds-P4D5gWEOQi9Bged4QEbaKSiHw7rxaQTD1TiWIqpC4_6pSQglwv08IX6gEeqMa3XuyNEkzUbXkXLtgFabezeXbmcqKY6u3HQod8JVZ19J3fohIHtfauHYA6_hISD6tN9GzquGwzad2zt2_t1IeqqxL3UuA"/>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<span class="font-headline-sm text-headline-sm text-on-surface truncate">Eastern Garter Snake</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold shrink-0">28%</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant italic truncate">Thamnophis sirtalis</span>
+<div class="flex flex-wrap items-center gap-1 mt-1">
+<span class="bg-surface-container text-primary font-label-sm text-label-sm px-2 py-0.5 rounded-full">🌿 Harmless</span>
+<span class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full">Moist Trails</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between bg-surface-container-low rounded-DEFAULT px-space-sm py-1 text-on-surface-variant">
+<span class="font-body-sm text-body-sm flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-tertiary">check_circle</span> Common sighting along Barton hike path</span>
+<span class="font-label-sm text-label-sm font-bold text-tertiary">1 in 4 snakes</span>
+</div>
+</div>
+<!-- Species Card 2: Western Rat Snake -->
+<div class="species-card rat w-full bg-surface-container-lowest rounded-lg p-space-sm shadow-sm flex flex-col gap-space-xs transition-all" data-family="rat">
+<div class="flex items-center gap-space-sm">
+<img class="w-20 h-20 rounded-DEFAULT object-cover shrink-0" data-alt="A curious Western Rat Snake with gentle golden flecks basking smoothly on a Texas limestone ledge near Barton Creek, joyful child-friendly nature photography warm natural daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMwhrUHi_uPkwLPrB5g6pwO02U4IRmXFjCJ8nNh_zKS2z3BeMT6mLuUdYqpN6eabZ2ecLxxgW_s1tyvK9mELCb0mpqEdxjFUX3_4go3KFLw26gC6f7hVtJhMkiy1o6QdCsQt8hdFmoC2qZIzB5ilWcpOCo-BzobImfvZe6B0z1eqCMpWCzqPu0avwfG5ADSWXL-A_2UAjusT5wJM6QS-NATNQtg1Ko47JaCqBGhZKCtqAf3dPbVtUyBg"/>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<span class="font-headline-sm text-headline-sm text-on-surface truncate">Western Rat Snake</span>
+<span class="font-headline-sm text-headline-sm text-tertiary-container font-bold shrink-0">22%</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant italic truncate">Pantherophis obsoletus</span>
+<div class="flex flex-wrap items-center gap-1 mt-1">
+<span class="bg-surface-container text-primary font-label-sm text-label-sm px-2 py-0.5 rounded-full">🌿 Gentle Glider</span>
+<span class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full">Climbs Trees!</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between bg-surface-container-low rounded-DEFAULT px-space-sm py-1 text-on-surface-variant">
+<span class="font-body-sm text-body-sm flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-primary">nature</span> Often spotted exploring live oak branches</span>
+<span class="font-label-sm text-label-sm font-bold text-tertiary">Rodent Patrol</span>
+</div>
+</div>
+<!-- Species Card 3: Plain-bellied Water Snake -->
+<div class="species-card garter w-full bg-surface-container-lowest rounded-lg p-space-sm shadow-sm flex flex-col gap-space-xs transition-all" data-family="garter">
+<div class="flex items-center gap-space-sm">
+<img class="w-20 h-20 rounded-DEFAULT object-cover shrink-0" data-alt="A harmless Plain-bellied Water Snake smoothly swimming across clear shallow turquoise water in Barton Creek Austin Texas, bright morning sunlight natural educational exploration photo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5Fh4T3f1oKa_YZV5RPS5qvZYDCUUtD3uJ9EFZyzUZOYY-MlbqFMSzAIeNWFo3R0S8NXbX-r_W53ur4RQLaaiL7vTc7JYMmjhy6obkewViBEtywsmyjXdW7ioIDxV_lf2PhwTScKfq136x207YNyAQuz7Rd5ITQgEDIfCrggpGmrRKkEUCZvkpMR1tkDeFsbjW4x07UPUJTShuYise1zpRo6ykAnW1q6zCa7XB0UHFlIAE9XuyIjOR0Q"/>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<span class="font-headline-sm text-headline-sm text-on-surface truncate">Plain-bellied Water Snake</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold shrink-0">18%</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant italic truncate">Nerodia erythrogaster</span>
+<div class="flex flex-wrap items-center gap-1 mt-1">
+<span class="bg-surface-container text-primary font-label-sm text-label-sm px-2 py-0.5 rounded-full">🌿 Harmless Swimmer</span>
+<span class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full">Creek Edge</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between bg-surface-container-low rounded-DEFAULT px-space-sm py-1 text-on-surface-variant">
+<span class="font-body-sm text-body-sm flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-tertiary">water</span> Master diver looking for small fish and minnows</span>
+<span class="font-label-sm text-label-sm font-bold text-tertiary">Near Water</span>
+</div>
+</div>
+<!-- Species Card 4: Rough Green Snake -->
+<div class="species-card tiny w-full bg-surface-container-lowest rounded-lg p-space-sm shadow-sm flex flex-col gap-space-xs transition-all" data-family="tiny">
+<div class="flex items-center gap-space-sm">
+<img class="w-20 h-20 rounded-DEFAULT object-cover shrink-0" data-alt="A slender emerald Rough Green Snake disguised gracefully in lush green Texas cedar sage bushes, bright vivid nature close up cheerful wildlife education shot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSKyhOGC5ZgqN3W4h9V0B2dFUvsqvdx8t4Cyys7z3sRYKUUQddOHc8yETSxSeO2gxFBc6stKbA7_vKvLv6Ejyi1BZEsciym0kTkvd9EBMiaq9jRZmLQbqMEJz0slTpacF9_55OrGvdznwdsNCN7ZZlOqHfeJeUDR3K_BAwOiPu_1cydM7QzikWRsyzNp04i1l7-RyiaDz9WNICUbNW_ppIoT6ENP5Y0_lozVJe0dNN08EUsU-Am9v3Yg"/>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<span class="font-headline-sm text-headline-sm text-on-surface truncate">Rough Green Snake</span>
+<span class="font-headline-sm text-headline-sm text-secondary font-bold shrink-0">12%</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant italic truncate">Opheodrys aestivus</span>
+<div class="flex flex-wrap items-center gap-1 mt-1">
+<span class="bg-surface-container text-primary font-label-sm text-label-sm px-2 py-0.5 rounded-full">🌿 Insect Eater</span>
+<span class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full">Camouflaged</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between bg-surface-container-low rounded-DEFAULT px-space-sm py-1 text-on-surface-variant">
+<span class="font-body-sm text-body-sm flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-secondary">pest_control</span> Loves grasshoppers, crickets &amp; caterpillars</span>
+<span class="font-label-sm text-label-sm font-bold text-secondary">Master of Hide &amp; Seek</span>
+</div>
+</div>
+<!-- Species Card 5: Broad-banded Copperhead (Safety Caution) -->
+<div class="species-card viper w-full bg-surface-container-low rounded-lg p-space-sm shadow-sm flex flex-col gap-space-xs transition-all" data-family="viper">
+<div class="flex items-center gap-space-sm">
+<img class="w-20 h-20 rounded-DEFAULT object-cover shrink-0" data-alt="A Broad-banded Copperhead showing distinctive hourglass patterns peacefully camouflaged in dry oak autumn leaves in Texas Hill Country, educational wildlife safety observation distance" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkE-cyi5guL4XunigsJav4G-BVBG99VF8schy87lQPCyBp_WpK3aZ7FWmX7tDXP7zjtLiwre5c5Nz_Y1mbkibxUmhhncVrGiQVVd-hll8RPNBttIo7otxyKrIv_VinhxzWcJcINCLk41tvYHyqKl5bg-mWQTweBc8qIQYqguzvVhN_-cGtnThai2I_U7Rbp4Fh4AnHWTqI67gth4lsU2NpeQkW55fkUc5y7HleoNsT9fCx5kJDPOmI7g"/>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<span class="font-headline-sm text-headline-sm text-on-surface truncate">Broad-banded Copperhead</span>
+<span class="font-headline-sm text-headline-sm text-secondary font-bold shrink-0">7%</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant italic truncate">Agkistrodon laticinctus</span>
+<div class="flex flex-wrap items-center gap-1 mt-1">
+<span class="bg-secondary text-on-secondary font-label-sm text-label-sm px-2 py-0.5 rounded-full">⚠️ Caution: Venomous</span>
+<span class="bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full">Leaf Litter</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between bg-surface-container-lowest rounded-DEFAULT px-space-sm py-1 text-secondary">
+<span class="font-body-sm text-body-sm flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-secondary">visibility</span> Keep 6 feet away and inform an adult leader</span>
+<span class="font-label-sm text-label-sm font-bold">Rare Sight</span>
+</div>
+</div>
+</section>
+<!-- Kid-Friendly Habitat Distribution Breakdown -->
+<section class="w-full bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Where Are They Hiding?</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Barton Creek Habitat Zones</span>
+</div>
+<span class="material-symbols-outlined text-primary text-[24px]">forest</span>
+</div>
+<!-- Habitat Cards Grid -->
+<div class="grid grid-cols-3 gap-space-xs">
+<!-- Zone 1: Creek Edges -->
+<div class="bg-surface-container-low rounded-DEFAULT p-space-xs flex flex-col items-center text-center gap-1">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[20px]">water_drop</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-tertiary font-bold leading-tight">40%</span>
+<span class="font-label-sm text-label-sm text-on-surface font-bold leading-tight">Creek Edges</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[11px] leading-tight">Frogs &amp; cool shallows</span>
+</div>
+<!-- Zone 2: Sunny Rocks -->
+<div class="bg-surface-container-low rounded-DEFAULT p-space-xs flex flex-col items-center text-center gap-1">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined text-[20px]">sunny</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-secondary font-bold leading-tight">35%</span>
+<span class="font-label-sm text-label-sm text-on-surface font-bold leading-tight">Sunny Rocks</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[11px] leading-tight">Morning sun &amp; warmth</span>
+</div>
+<!-- Zone 3: Forest Canopy & Logs -->
+<div class="bg-surface-container-low rounded-DEFAULT p-space-xs flex flex-col items-center text-center gap-1">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">park</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-primary font-bold leading-tight">25%</span>
+<span class="font-label-sm text-label-sm text-on-surface font-bold leading-tight">Canopy / Logs</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[11px] leading-tight">Fallen limbs &amp; trees</span>
+</div>
+</div>
+<!-- Explorer Tip Box -->
+<div class="bg-surface-container-low rounded-DEFAULT p-space-sm flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[22px] shrink-0 mt-0.5">tips_and_updates</span>
+<div class="flex flex-col text-on-surface">
+<span class="font-label-sm text-label-sm font-bold text-primary">Detective Tip #1</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Reptiles are cold-blooded! On cloudy days, check dry limestone rocks near Twin Falls where stored heat keeps them cozy.</span>
+</div>
+</div>
+</section>
+<!-- Share Census Floating Action Button Area -->
+<div class="w-full pt-space-xs pb-space-sm flex justify-center">
+<button class="w-full bg-primary-container text-on-primary font-label-lg text-label-lg py-space-sm px-space-md rounded-full flex items-center justify-center gap-space-xs shadow-[0_4px_0px_#00522d] active:translate-y-1 active:shadow-none transition-all" onclick="triggerShareModal()">
+<span class="material-symbols-outlined text-[22px]">share</span>
+<span>Share Census with Class or Troop</span>
+</button>
+</div>
+<!-- Micro Interaction Toast Confirmation -->
+<div class="fixed bottom-24 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface px-space-md py-space-xs rounded-full font-label-sm text-label-sm shadow-xl flex items-center gap-space-xs opacity-0 pointer-events-none transition-opacity duration-300 z-50" id="share-toast">
+<span class="material-symbols-outlined text-inverse-primary text-[18px]">verified</span>
+<span>Census Link Copied! Ready for your science group 🦎</span>
+</div>
+</div>
+<script>
+  function filterFamily(family, btnElement) {
+    // Update active filter styling
+    const buttons = document.querySelectorAll('.family-btn');
+    buttons.forEach(b => {
+      b.className = 'family-btn bg-surface-container-high text-on-surface font-label-sm text-label-sm px-space-sm py-1.5 rounded-full whitespace-nowrap active:translate-y-0.5 transition-all';
+    });
+    btnElement.className = 'family-btn bg-primary-container text-on-primary font-label-sm text-label-sm px-space-sm py-1.5 rounded-full whitespace-nowrap shadow-[0_3px_0px_#00522d] active:translate-y-0.5 transition-all';
+
+    // Filter species cards
+    const cards = document.querySelectorAll('.species-card');
+    cards.forEach(card => {
+      if (family === 'all' || card.dataset.family === family) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  function triggerShareModal() {
+    const toast = document.getElementById('share-toast');
+    if (toast) {
+      toast.classList.remove('opacity-0', 'pointer-events-none');
+      toast.classList.add('opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0', 'pointer-events-none');
+      }, 2500);
+    }
+  }
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe pointer-events-none" data-active-classes="bg-primary-container text-on-primary font-bold shadow-[0_4px_0px_#00522d]"><div class="px-gutter-mobile pb-space-sm pt-space-xs pointer-events-auto"><div class="bg-surface-container-lowest/95 backdrop-blur-xl rounded-full px-space-xs py-space-xs shadow-[0_8px_24px_rgba(0,31,41,0.08)] flex items-center justify-between"><a class="flex-1 flex flex-col items-center justify-center min-h-[44px] py-space-xs px-space-xxs rounded-full text-on-surface-variant hover:text-primary transition-all duration-150" data-path="explore" href="#"><span class="material-symbols-outlined text-[24px]">travel_explore</span><span class="font-label-sm text-label-sm leading-none mt-1">Explore</span></a><a aria-current="page" class="flex-1 flex flex-col items-center justify-center min-h-[44px] py-space-xs px-space-xxs rounded-full transition-all duration-150 bg-primary-container text-on-primary font-bold shadow-[0_4px_0px_#00522d]" data-path="area-census" href="#"><span class="material-symbols-outlined text-[24px]">pie_chart</span><span class="font-label-sm text-label-sm leading-none mt-1">Census</span></a><a class="flex-1 flex flex-col items-center justify-center min-h-[44px] py-space-xs px-space-xxs rounded-full text-on-surface-variant hover:text-primary transition-all duration-150" data-path="field-guide" href="#"><span class="material-symbols-outlined text-[24px]">menu_book</span><span class="font-label-sm text-label-sm leading-none mt-1">Guide</span></a><a class="flex-1 flex flex-col items-center justify-center min-h-[44px] py-space-xs px-space-xxs rounded-full text-on-surface-variant hover:text-primary transition-all duration-150" data-path="my-log" href="#"><span class="material-symbols-outlined text-[24px]">auto_stories</span><span class="font-label-sm text-label-sm leading-none mt-1">My Log</span></a></div></div></nav></body></html>
