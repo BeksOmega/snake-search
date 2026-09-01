@@ -170,6 +170,16 @@ class SlitherScopeApp {
       }
     });
 
+    // Show/hide map section wrapper (visible on Census and Explore, hidden on Guide and Log)
+    const mapWrapper = document.getElementById('map-section-wrapper');
+    if (mapWrapper) {
+      if (tabName === 'area-census' || tabName === 'explore') {
+        mapWrapper.classList.remove('hidden');
+      } else {
+        mapWrapper.classList.add('hidden');
+      }
+    }
+
     // Re-render active tab content
     if (tabName === 'area-census') {
       this.renderCensus();
@@ -177,7 +187,12 @@ class SlitherScopeApp {
         setTimeout(() => this.snakeMap.map.invalidateSize(), 150);
       }
     }
-    else if (tabName === 'explore') this.renderExplore();
+    else if (tabName === 'explore') {
+      this.renderExplore();
+      if (this.snakeMap && this.snakeMap.map) {
+        setTimeout(() => this.snakeMap.map.invalidateSize(), 150);
+      }
+    }
     else if (tabName === 'field-guide') this.renderGuide();
     else if (tabName === 'my-log') this.renderLog();
 
@@ -1022,6 +1037,14 @@ class SlitherScopeApp {
 
   setRadius(miles) {
     if (this.snakeMap) this.snakeMap.setRadius(miles);
+  }
+
+  expandRadius() {
+    if (this.snakeMap) this.snakeMap.expandRadius();
+  }
+
+  shrinkRadius() {
+    if (this.snakeMap) this.snakeMap.shrinkRadius();
   }
 
   useCurrentLocation() {

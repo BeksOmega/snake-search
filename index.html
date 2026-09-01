@@ -197,11 +197,8 @@
   <main class="flex flex-col flex-1 relative w-full pt-16 pb-28 bg-surface">
 
     <!-- ========================================== -->
-    <!-- VIEW 1: AREA CENSUS VIEW                   -->
-    <!-- ========================================== -->
-        <div id="view-census" class="flex flex-col w-full px-gutter-mobile gap-space-md">
-      
-      <!-- Interactive Live Leaflet Map & Area Selector -->
+    <!-- Interactive Live Leaflet Map & Area Selector (Shared between Census and Explore views) -->
+    <div id="map-section-wrapper" class="w-full px-gutter-mobile">
       <section id="map-section" class="w-full bg-surface-container-lowest rounded-lg p-space-sm shadow-sm flex flex-col gap-space-xs mt-2">
         <div class="flex items-center justify-between px-1">
           <div class="flex items-center gap-space-xs">
@@ -237,12 +234,17 @@
         <div class="relative w-full">
           <div id="map" class="w-full h-72 sm:h-84 rounded-DEFAULT shadow-inner border border-surface-container overflow-hidden"></div>
           
-          <!-- Map Overlay Controls: Search Radius -->
-          <div class="absolute top-2 right-2 z-[400] bg-surface-container-lowest/90 backdrop-blur-md rounded-full px-2 py-1 shadow-md flex items-center gap-1 border border-surface-container text-xs font-bold">
-            <span class="text-on-surface-variant font-label-sm text-[11px] ml-1">Radius:</span>
-            <button onclick="window.slitherApp && window.slitherApp.setRadius ? window.slitherApp.setRadius(5) : null" id="rad-5" class="rad-btn px-2 py-0.5 rounded-full bg-primary text-on-primary">5 mi</button>
-            <button onclick="window.slitherApp && window.slitherApp.setRadius ? window.slitherApp.setRadius(10) : null" id="rad-10" class="rad-btn px-2 py-0.5 rounded-full bg-surface-container text-on-surface">10 mi</button>
-            <button onclick="window.slitherApp && window.slitherApp.setRadius ? window.slitherApp.setRadius(25) : null" id="rad-25" class="rad-btn px-2 py-0.5 rounded-full bg-surface-container text-on-surface">25 mi</button>
+          <!-- Map Overlay Controls: Search Radius (Expandable / Shrinkable) -->
+          <div id="map-radius-control" class="absolute top-2 right-2 z-[400] bg-surface-container-lowest/95 backdrop-blur-md rounded-full px-2.5 py-1 shadow-md flex items-center gap-1.5 border border-surface-container text-xs font-medium select-none">
+            <span class="text-on-surface-variant font-label-sm text-[11px] font-bold">Radius:</span>
+            <button id="radius-shrink-btn" type="button" aria-label="Shrink search radius" title="Shrink radius (-)" class="w-6 h-6 rounded-full bg-surface-container hover:bg-surface-container-high active:scale-90 flex items-center justify-center text-on-surface font-bold text-sm leading-none transition-all cursor-pointer">
+              −
+            </button>
+            <input id="radius-slider" type="range" min="1" max="50" value="5" step="1" aria-label="Search radius slider" class="w-16 sm:w-24 h-1.5 bg-surface-container rounded-lg appearance-none cursor-pointer accent-primary" />
+            <button id="radius-expand-btn" type="button" aria-label="Expand search radius" title="Expand radius (+)" class="w-6 h-6 rounded-full bg-surface-container hover:bg-surface-container-high active:scale-90 flex items-center justify-center text-on-surface font-bold text-sm leading-none transition-all cursor-pointer">
+              +
+            </button>
+            <span id="radius-display" class="font-bold text-primary font-label-sm text-xs min-w-[32px] text-right">5 mi</span>
           </div>
 
           <!-- Map Pin Legend Overlay -->
@@ -256,6 +258,12 @@
           Click or drag anywhere on the map to survey snake species recorded by iNaturalist in that zone.
         </p>
       </section>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- VIEW 1: AREA CENSUS VIEW                   -->
+    <!-- ========================================== -->
+    <div id="view-census" class="flex flex-col w-full px-gutter-mobile gap-space-md mt-2">
       
       <!-- Area Banner Header Card (Clickable to switch location) -->
       <div id="census-location-banner" class="relative w-full rounded-lg bg-surface-container-low p-space-md shadow-sm overflow-hidden cursor-pointer hover:bg-surface-container transition-colors group">

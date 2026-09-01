@@ -44,9 +44,11 @@ export class SnakeMapController {
     this.map = null;
     this.radiusCircle = null;
     this.centerMarker = null;
+    this.edgeHandle = null;
     this.observationMarkersLayer = null;
     this.currentSpeciesData = [];
     this.activeFilter = 'all';
+    this.fetchDebounceTimer = null;
   }
 
   init() {
@@ -62,7 +64,7 @@ export class SnakeMapController {
     this.map = L.map('map', {
       zoomControl: false,
       attributionControl: false
-    }).setView([this.currentLat, this.currentLng], 12);
+    }).setView([this.currentLat, this.currentLng], this.getZoomForRadius(this.currentRadiusMiles));
 
     // CartoDB Voyager tiles (clean, soft colors matching M3 theme)
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
@@ -71,6 +73,8 @@ export class SnakeMapController {
     }).addTo(this.map);
 
     this.observationMarkersLayer = L.layerGroup().addTo(this.map);
+    this.bindRadiusControls();
+    this.updateRadiusUI();
     this.updateMapGeometry();
 
     // Tap map to survey area
@@ -84,6 +88,7 @@ export class SnakeMapController {
         b.className = 'preset-btn bg-surface-container-high text-on-surface font-label-sm text-label-sm px-space-sm py-1 rounded-full whitespace-nowrap active:translate-y-0.5 transition-all flex items-center gap-1';
       });
 
+      this.updateRadiusUI();
       this.updateMapGeometry();
       this.fetchCensusData();
     });
@@ -92,6 +97,54 @@ export class SnakeMapController {
     setTimeout(() => {
       if (this.map) this.map.invalidateSize();
     }, 300);
+  }
+
+  bindRadiusControls() {
+    const overlay = document.getElementById('map-radius-control');
+    if (overlay && typeof L !== 'undefined') {
+      L.DomEvent.disableClickPropagation(overlay);
+      L.DomEvent.disableScrollPropagation(overlay);
+    }
+
+    const shrinkBtn = document.getElementById('radius-shrink-btn');
+    if (shrinkBtn) {
+      shrinkBtn.onclick = (e) => {
+        e.stopPropagation();
+        this.shrinkRadius();
+      };
+    }
+
+    const expandBtn = document.getElementById('radius-expand-btn');
+    if (expandBtn) {
+      expandBtn.onclick = (e) => {
+        e.stopPropagation();
+        this.expandRadius();
+      };
+    }
+
+    const slider = document.getElementById('radius-slider');
+    if (slider) {
+      slider.oninput = (e) => {
+        e.stopPropagation();
+        const miles = Number(e.target.value);
+        this.setRadius(miles, true);
+      };
+    }
+  }
+
+  updateRadiusUI() {
+    const display = document.getElementById('radius-display');
+    if (display) {
+      display.textContent = `${this.currentRadiusMiles} mi`;
+    }
+    const slider = document.getElementById('radius-slider');
+    if (slider && Number(slider.value) !== this.currentRadiusMiles) {
+      slider.value = this.currentRadiusMiles;
+    }
+    const areaLabel = document.getElementById('census-area-label');
+    if (areaLabel) {
+      areaLabel.textContent = `${this.currentPlaceName} • ${this.currentRadiusMiles}-Mile Radius`;
+    }
   }
 
   updateMapGeometry() {
@@ -124,29 +177,94 @@ export class SnakeMapController {
       this.centerMarker = L.marker([this.currentLat, this.currentLng], { icon: centerIcon }).addTo(this.map);
     }
 
+    // Edge resize handle allowing direct dragging on the circle border
+    const lngOffset = radiusMeters / (111320 * Math.cos(this.currentLat * (Math.PI / 180)));
+    const edgeLatLng = [this.currentLat, this.currentLng + lngOffset];
+
+    if (this.edgeHandle) {
+      this.edgeHandle.setLatLng(edgeLatLng);
+    } else {
+      const handleIcon = L.divIcon({
+        className: 'custom-radius-handle',
+        html: `<div title="Drag circle edge to expand or shrink search radius" style="background:#ffffff; color:#006a3b; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:bold; box-shadow:0 2px 6px rgba(0,0,0,0.35); border:2px solid #006a3b; cursor:ew-resize; user-select:none;">↔</div>`,
+        iconSize: [22, 22],
+        iconAnchor: [11, 11]
+      });
+      this.edgeHandle = L.marker(edgeLatLng, {
+        icon: handleIcon,
+        draggable: true,
+        zIndexOffset: 1000
+      }).addTo(this.map);
+
+      this.edgeHandle.on('drag', (e) => {
+        const center = L.latLng(this.currentLat, this.currentLng);
+        const distMeters = center.distanceTo(e.latlng);
+        const miles = Math.max(1, Math.min(50, Math.round(distMeters / 1609.34)));
+        this.currentRadiusMiles = miles;
+        if (this.radiusCircle) {
+          this.radiusCircle.setRadius(miles * 1609.34);
+        }
+        this.updateRadiusUI();
+      });
+
+      this.edgeHandle.on('dragend', () => {
+        this.setRadius(this.currentRadiusMiles, true);
+      });
+    }
+
     this.map.setView([this.currentLat, this.currentLng], this.getZoomForRadius(this.currentRadiusMiles));
   }
 
   getZoomForRadius(miles) {
-    if (miles <= 5) return 12;
-    if (miles <= 10) return 11;
-    return 10;
+    if (miles <= 3) return 13;
+    if (miles <= 7) return 12;
+    if (miles <= 14) return 11;
+    if (miles <= 28) return 10;
+    return 9;
   }
 
-  setRadius(miles) {
-    this.currentRadiusMiles = miles;
-    [5, 10, 25].forEach(r => {
-      const btn = document.getElementById(`rad-${r}`);
-      if (btn) {
-        if (r === miles) {
-          btn.className = "rad-btn px-2 py-0.5 rounded-full bg-primary text-on-primary font-bold";
-        } else {
-          btn.className = "rad-btn px-2 py-0.5 rounded-full bg-surface-container text-on-surface";
-        }
-      }
-    });
+  setRadius(miles, triggerFetch = true) {
+    const clamped = Math.max(1, Math.min(50, Math.round(miles)));
+    this.currentRadiusMiles = clamped;
+    this.updateRadiusUI();
     this.updateMapGeometry();
-    this.fetchCensusData();
+
+    if (triggerFetch) {
+      if (this.fetchDebounceTimer) {
+        clearTimeout(this.fetchDebounceTimer);
+      }
+      this.fetchDebounceTimer = setTimeout(() => {
+        this.fetchCensusData();
+      }, 400);
+    }
+  }
+
+  expandRadius() {
+    let next;
+    if (this.currentRadiusMiles < 5) {
+      next = this.currentRadiusMiles + 1;
+    } else if (this.currentRadiusMiles < 10) {
+      next = this.currentRadiusMiles + 1;
+    } else if (this.currentRadiusMiles < 20) {
+      next = this.currentRadiusMiles + 2;
+    } else {
+      next = this.currentRadiusMiles + 5;
+    }
+    this.setRadius(Math.min(50, next), true);
+  }
+
+  shrinkRadius() {
+    let next;
+    if (this.currentRadiusMiles <= 5) {
+      next = this.currentRadiusMiles - 1;
+    } else if (this.currentRadiusMiles <= 10) {
+      next = this.currentRadiusMiles - 1;
+    } else if (this.currentRadiusMiles <= 20) {
+      next = this.currentRadiusMiles - 2;
+    } else {
+      next = this.currentRadiusMiles - 5;
+    }
+    this.setRadius(Math.max(1, next), true);
   }
 
   jumpToPreset(lat, lng, name, radiusMiles) {
@@ -154,6 +272,7 @@ export class SnakeMapController {
     this.currentLng = lng;
     this.currentPlaceName = name;
     this.currentRadiusMiles = radiusMiles || 5;
+    this.updateRadiusUI();
 
     const buttons = document.querySelectorAll('.preset-btn');
     buttons.forEach(b => {
@@ -177,6 +296,7 @@ export class SnakeMapController {
           this.currentLat = pos.coords.latitude;
           this.currentLng = pos.coords.longitude;
           this.currentPlaceName = "My Current Location";
+          this.updateRadiusUI();
           this.updateMapGeometry();
           this.fetchCensusData();
         },
@@ -336,7 +456,7 @@ export class SnakeMapController {
         <div class="w-full bg-surface-container-lowest rounded-lg p-space-md shadow-sm text-center text-on-surface-variant">
           <span class="text-3xl block mb-2">🔍</span>
           <p class="font-headline-sm text-headline-sm text-on-surface">No snake records found in this radius</p>
-          <p class="font-body-sm text-body-sm mt-1">Try expanding the search radius to 10 or 25 miles, or selecting a nearby park or canyon!</p>
+          <p class="font-body-sm text-body-sm mt-1">Try expanding the search radius with the [+] button or slider, or selecting a nearby park or canyon!</p>
         </div>
       `;
       return;
