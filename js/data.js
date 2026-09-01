@@ -97,7 +97,7 @@ export const SPECIES_DATA = [
     },
     idTips: [
       'Solid plain yellow or red-orange belly with no dark half-moons',
-      'Swims with entire body submerged or resting head on water surface',
+      'Solid dark back with no facial mask or stripe across eyes',
       'Round pupils with vertical dark bars on upper lip scales'
     ],
     imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB5Fh4T3f1oKa_YZV5RPS5qvZYDCUUtD3uJ9EFZyzUZOYY-MlbqFMSzAIeNWFo3R0S8NXbX-r_W53ur4RQLaaiL7vTc7JYMmjhy6obkewViBEtywsmyjXdW7ioIDxV_lf2PhwTScKfq136x207YNyAQuz7Rd5ITQgEDIfCrggpGmrRKkEUCZvkpMR1tkDeFsbjW4x07UPUJTShuYise1zpRo6ykAnW1q6zCa7XB0UHFlIAE9XuyIjOR0Q',
@@ -247,10 +247,10 @@ export const SPECIES_DATA = [
     sightingCount: 10,
     habitats: ['creek'],
     primaryHabitat: 'creek',
-    trailNote: 'Swims high on top of water like a floating log',
+    trailNote: 'White mouth lining and dark facial mask',
     frequencyLabel: 'Observe from 10ft',
     description: 'A heavy-bodied aquatic pit viper with dark olive-black coloring, blocky head, and a distinctive white mouth lining displayed when threatened.',
-    kidFact: 'Cottonmouths swim buoyantly with their entire body on top of the water like a floating pool noodle, whereas harmless water snakes swim with only their head poked up!',
+    kidFact: 'When threatened, cottonmouths open wide to flash a bright white mouth lining and show a distinctive dark mask across their eyes!',
     diet: 'Fish, frogs, baby turtles, and small water birds.',
     size: '30 – 42 inches',
     activityTime: 'Dusk & Night',
