@@ -32,7 +32,7 @@ export const SPECIES_DATA = [
     idTips: [
       'Distinct yellow or turquoise dorsal racing stripe from head to tail',
       'Checkerboard pattern between stripes on dark body',
-      'Round pupils and slender friendly face'
+      'Slender head with bright dorsal stripe and checkered pattern'
     ],
     imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuByVUtxIByBunqSKbbi1QnMk_--moKvCoH__Mp123ZSdxAyXNum0arkTJN33j3QlqU2a1KUk2y7J-J7HlDMUdl2F3_kXEds-P4D5gWEOQi9Bged4QEbaKSiHw7rxaQTD1TiWIqpC4_6pSQglwv08IX6gEeqMa3XuyNEkzUbXkXLtgFabezeXbmcqKY6u3HQod8JVZ19J3fohIHtfauHYA6_hISD6tN9GzquGwzad2zt2_t1IeqqxL3UuA',
     imageAlt: 'Eastern Garter Snake with bright yellow stripe resting on a river stone'
@@ -98,7 +98,7 @@ export const SPECIES_DATA = [
     idTips: [
       'Solid plain yellow or red-orange belly with no dark half-moons',
       'Swims with entire body submerged or resting head on water surface',
-      'Round pupils with vertical dark bars on upper lip scales'
+      'Vertical dark bars on upper lip scales with plain belly'
     ],
     imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB5Fh4T3f1oKa_YZV5RPS5qvZYDCUUtD3uJ9EFZyzUZOYY-MlbqFMSzAIeNWFo3R0S8NXbX-r_W53ur4RQLaaiL7vTc7JYMmjhy6obkewViBEtywsmyjXdW7ioIDxV_lf2PhwTScKfq136x207YNyAQuz7Rd5ITQgEDIfCrggpGmrRKkEUCZvkpMR1tkDeFsbjW4x07UPUJTShuYise1zpRo6ykAnW1q6zCa7XB0UHFlIAE9XuyIjOR0Q',
     imageAlt: 'Plain-bellied Water Snake swimming in clear creek shallows'
@@ -164,7 +164,7 @@ export const SPECIES_DATA = [
     idTips: [
       'Distinct broad copper/chestnut hourglass crossbands wider on the sides',
       'Triangular head with heat-sensing pit between eye and nostril',
-      'Vertical slit cat-like pupils in bright light'
+      'Hourglass crossbands wider on sides with triangular head'
     ],
     imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBkE-cyi5guL4XunigsJav4G-BVBG99VF8schy87lQPCyBp_WpK3aZ7FWmX7tDXP7zjtLiwre5c5Nz_Y1mbkibxUmhhncVrGiQVVd-hll8RPNBttIo7otxyKrIv_VinhxzWcJcINCLk41tvYHyqKl5bg-mWQTweBc8qIQYqguzvVhN_-cGtnThai2I_U7Rbp4Fh4AnHWTqI67gth4lsU2NpeQkW55fkUc5y7HleoNsT9fCx5kJDPOmI7g',
     imageAlt: 'Broad-banded Copperhead showing distinctive hourglass bands'
@@ -451,7 +451,7 @@ export const DETECTIVE_TIPS = [
   {
     id: 5,
     title: 'Detective Tip #5',
-    text: 'Check the pupils! Harmless colubrids have round friendly pupils like puppies. Pit vipers have vertical cat-eye slits in daylight.'
+    text: 'Focus on body patterns and color bands from at least 6 feet away! Identify species by observing overall markings, stripes, or saddle shapes from a safe distance.'
   }
 ];
 

@@ -468,10 +468,14 @@ class SlitherScopeApp {
     const tip = state.getCurrentTip();
     const titleEl = document.getElementById('detective-tip-title');
     const textEl = document.getElementById('detective-tip-text');
+    const badgeEl = document.getElementById('detective-tip-badge');
     const nextBtn = document.getElementById('detective-tip-next-btn');
 
     if (titleEl) titleEl.textContent = tip.title;
     if (textEl) textEl.textContent = tip.text;
+    if (badgeEl) {
+      badgeEl.innerHTML = `<span class="material-symbols-outlined text-[14px]">straighten</span> 6-Ft Distance`;
+    }
     if (nextBtn) {
       nextBtn.onclick = () => {
         state.nextTip();
