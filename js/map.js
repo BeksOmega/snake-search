@@ -51,7 +51,13 @@ export class SnakeMapController {
 
   init() {
     const mapEl = document.getElementById('map');
-    if (!mapEl || typeof L === 'undefined') return;
+    if (!mapEl) return;
+    if (typeof L === 'undefined') {
+      setTimeout(() => this.init(), 100);
+      return;
+    }
+
+    if (this.map) return; // Already initialized
 
     this.map = L.map('map', {
       zoomControl: false,
@@ -83,6 +89,9 @@ export class SnakeMapController {
     });
 
     this.fetchCensusData();
+    setTimeout(() => {
+      if (this.map) this.map.invalidateSize();
+    }, 300);
   }
 
   updateMapGeometry() {

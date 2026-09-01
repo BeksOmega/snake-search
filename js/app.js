@@ -1014,14 +1014,6 @@ class SlitherScopeApp {
     const searchInput = document.getElementById('explore-search-input');
     if (searchInput) searchInput.value = '';
   }
-}
-
-// Initialize on DOM load
-window.addEventListener('DOMContentLoaded', () => {
-  window.slitherApp = new SlitherScopeApp();
-  if (window.slitherApp.snakeMap) {
-    window.slitherApp.snakeMap.init();
-  }
 
   // Map Controller Delegations
   jumpToPreset(lat, lng, name, radius) {
@@ -1035,5 +1027,19 @@ window.addEventListener('DOMContentLoaded', () => {
   useCurrentLocation() {
     if (this.snakeMap) this.snakeMap.useCurrentLocation();
   }
+}
+
+// Initialize on DOM load
+function boot() {
+  window.slitherApp = new SlitherScopeApp();
+  if (window.slitherApp.snakeMap) {
+    window.slitherApp.snakeMap.init();
+  }
+}
+
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', boot);
+} else {
+  boot();
 }
 
