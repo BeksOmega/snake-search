@@ -1,3 +1,4 @@
+import { HotspotsController } from './hotspots.js';
 import { SnakeMapController } from './map.js';
 /**
  * SlitherScope - Main Application Controller
@@ -15,6 +16,7 @@ class SlitherScopeApp {
     this.bindEvents();
     this.initRouter();
     this.snakeMap = new SnakeMapController();
+    this.hotspotsController = new HotspotsController();
     this.render();
 
     // Subscribe to state changes
@@ -29,6 +31,7 @@ class SlitherScopeApp {
     this.viewExplore = document.getElementById('view-explore');
     this.viewGuide = document.getElementById('view-guide');
     this.viewLog = document.getElementById('view-log');
+    this.viewHotspots = document.getElementById('view-hotspots');
 
     // Header XP
     this.headerXpBadge = document.getElementById('header-xp-badge');
@@ -113,6 +116,7 @@ class SlitherScopeApp {
       const hash = window.location.hash.replace(/^#\/?/, '') || 'area-census';
       let cleanTab = 'area-census';
       if (hash.includes('explore')) cleanTab = 'explore';
+      else if (hash.includes('hotspot')) cleanTab = 'hotspots';
       else if (hash.includes('guide') || hash.includes('field-guide')) cleanTab = 'field-guide';
       else if (hash.includes('log') || hash.includes('my-log')) cleanTab = 'my-log';
       else cleanTab = 'area-census';
@@ -139,6 +143,7 @@ class SlitherScopeApp {
     const views = {
       'area-census': this.viewCensus,
       'explore': this.viewExplore,
+      'hotspots': this.viewHotspots,
       'field-guide': this.viewGuide,
       'my-log': this.viewLog
     };
@@ -191,6 +196,11 @@ class SlitherScopeApp {
       this.renderExplore();
       if (this.snakeMap && this.snakeMap.map) {
         setTimeout(() => this.snakeMap.map.invalidateSize(), 150);
+      }
+    }
+    else if (tabName === 'hotspots') {
+      if (this.hotspotsController) {
+        this.hotspotsController.activate();
       }
     }
     else if (tabName === 'field-guide') this.renderGuide();
@@ -1057,6 +1067,9 @@ function boot() {
   window.slitherApp = new SlitherScopeApp();
   if (window.slitherApp.snakeMap) {
     window.slitherApp.snakeMap.init();
+  }
+  if (window.slitherApp.hotspotsController) {
+    window.slitherApp.hotspotsController.init();
   }
 }
 
