@@ -176,7 +176,11 @@ class AppState {
         const matchDiet = s.diet.toLowerCase().includes(q);
         const matchDesc = s.description.toLowerCase().includes(q);
         const matchBadge = s.safetyBadge.toLowerCase().includes(q);
-        if (!matchName && !matchSci && !matchDiet && !matchDesc && !matchBadge) {
+        const matchFact = s.kidFact ? s.kidFact.toLowerCase().includes(q) : false;
+        const matchTrail = s.trailNote ? s.trailNote.toLowerCase().includes(q) : false;
+        const matchTips = s.idTips ? s.idTips.some(tip => tip.toLowerCase().includes(q)) : false;
+        const matchTraits = s.traits ? Object.values(s.traits).some(val => String(val).toLowerCase().includes(q)) : false;
+        if (!matchName && !matchSci && !matchDiet && !matchDesc && !matchBadge && !matchFact && !matchTrail && !matchTips && !matchTraits) {
           return false;
         }
       }

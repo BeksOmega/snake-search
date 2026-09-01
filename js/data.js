@@ -280,10 +280,10 @@ export const SPECIES_DATA = [
     sightingCount: 7,
     habitats: ['leaf_litter', 'rocks'],
     primaryHabitat: 'leaf_litter',
-    trailNote: 'Red on yellow, kill a fellow! Give plenty of space.',
+    trailNote: 'Maintain a safe observation distance of at least 6 feet from all snakes.',
     frequencyLabel: 'Very Shy',
     description: 'A reclusive elapid with brilliant alternating red, yellow, and black rings. Extremely shy and secretive, spending most of its time buried in decaying leaf litter.',
-    kidFact: 'Remember the classic rhyme: "Red touch yellow, kill a fellow; Red touch black, friend of Jack!"',
+    kidFact: 'Texas Coral Snakes are identified by their blunt black snout extending past the eyes and distinct ringed body pattern with alternating red, yellow, and black bands. Always maintain a safe observation distance of at least 6 feet!',
     diet: 'Small smooth-scaled snakes and little ground lizards.',
     size: '20 – 30 inches',
     activityTime: 'Morning & Overcast Days',
@@ -294,9 +294,9 @@ export const SPECIES_DATA = [
       scaleType: 'smooth'
     },
     idTips: [
-      'Red rings touch Yellow rings directly',
-      'Blunt, rounded head that is solid black to behind the eyes',
-      'Short fixed fangs and very shy temperament'
+      'Blunt, rounded head with a solid black snout extending past the eyes',
+      'Ringed body pattern with alternating red, yellow, and black bands encircling the body',
+      'Reclusive nature with short fixed fangs; always maintain a safe distance of at least 6 feet'
     ],
     imageUrl: 'https://images.unsplash.com/photo-1520690214124-2405c5217036?auto=format&fit=crop&w=600&q=80',
     imageAlt: 'Texas Coral Snake with bright red, yellow, and black banding'
