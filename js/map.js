@@ -2,6 +2,7 @@
  * SlitherScope - Interactive Leaflet Map & Live iNaturalist Integration
  * Connects the map view directly to the iNaturalist API for real-time species counts & sightings.
  */
+import { resolveSpeciesImage, SVG_FALLBACK } from './media.js';
 
 // Venomous snake check (Viperidae: 30667, Elapidae: 30403)
 export function isVenomousTaxon(taxon) {
@@ -486,7 +487,7 @@ export class SnakeMapController {
       const commonName = t.preferred_common_name || t.name;
       const sciName = t.name;
       const venomous = isVenomousTaxon(t);
-      const photoUrl = t.default_photo ? t.default_photo.medium_url : 'https://images.unsplash.com/photo-1531386151447-fd76ad50012f?w=400&auto=format&fit=crop&q=80';
+      const photoUrl = resolveSpeciesImage({ taxon: t });
 
       const categoryClass = venomous ? 'caution' : 'harmless';
       const badgeHtml = venomous
@@ -506,7 +507,7 @@ export class SnakeMapController {
                  src="${photoUrl}" 
                  alt="${commonName}" 
                  loading="lazy"
-                 onerror="this.src='https://images.unsplash.com/photo-1531386151447-fd76ad50012f?w=400&auto=format&fit=crop&q=80'"/>
+                 onerror="this.onerror=null; this.src='${SVG_FALLBACK}';"/>
             <div class="flex flex-col flex-1 min-w-0">
               <div class="flex items-center justify-between gap-1">
                 <span class="font-headline-sm text-headline-sm text-on-surface truncate">${commonName}</span>
@@ -549,9 +550,8 @@ export class SnakeMapController {
       const t = obs.taxon || {};
       const commonName = t.preferred_common_name || t.name || 'Snake';
       const venomous = isVenomousTaxon(t);
-      const photo = (obs.photos && obs.photos.length > 0)
-        ? obs.photos[0].url.replace('square', 'medium')
-        : (t.default_photo ? t.default_photo.medium_url : null);
+      const rawPhoto = (obs.photos && obs.photos.length > 0) ? obs.photos[0].url : null;
+      const photo = resolveSpeciesImage({ photoUrl: rawPhoto, taxon: t });
 
       const markerColor = venomous ? '#8e4e14' : '#006a3b';
       const markerEmoji = venomous ? '⚠️' : '🐍';
@@ -566,7 +566,7 @@ export class SnakeMapController {
       const marker = L.marker([lat, lng], { icon: customIcon });
 
       const photoTag = photo
-        ? `<img src="${photo}" class="w-full h-28 object-cover rounded-DEFAULT mb-2" alt="${commonName}"/>`
+        ? `<img src="${photo}" class="w-full h-28 object-cover rounded-DEFAULT mb-2" alt="${commonName}" onerror="this.onerror=null; this.src='${SVG_FALLBACK}';"/>`
         : '';
 
       marker.bindPopup(`

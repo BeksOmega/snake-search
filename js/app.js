@@ -6,9 +6,7 @@ import { SnakeMapController } from './map.js';
  */
 import { SPECIES_DATA, LOCATIONS_DATA, SAFETY_RULES } from './data.js';
 import { state } from './state.js';
-
-// SVG Fallback for broken images
-const SVG_FALLBACK = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23d8f2ff'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='20' fill='%2300628c'%3E🐍 SlitherScope Reptile%3C/text%3E%3C/svg%3E";
+import { SVG_FALLBACK, resolveSpeciesImage } from './media.js';
 
 class SlitherScopeApp {
   constructor() {
@@ -400,7 +398,7 @@ class SlitherScopeApp {
           <div class="flex items-center gap-space-sm">
             <img class="w-20 h-20 rounded-DEFAULT object-cover shrink-0 bg-surface-container"
                  alt="${s.name}"
-                 src="${s.imageUrl}"
+                 src="${resolveSpeciesImage({ species: s })}"
                  onerror="this.onerror=null; this.src='${SVG_FALLBACK}';" />
             <div class="flex flex-col flex-1 min-w-0">
               <div class="flex items-center justify-between gap-1">
@@ -652,7 +650,7 @@ class SlitherScopeApp {
           <div class="relative w-full h-36 rounded-DEFAULT overflow-hidden bg-surface-container">
             <img class="w-full h-full object-cover"
                  alt="${s.name}"
-                 src="${s.imageUrl}"
+                 src="${resolveSpeciesImage({ species: s })}"
                  onerror="this.onerror=null; this.src='${SVG_FALLBACK}';" />
             <span class="absolute top-2 right-2 ${badgeClass} font-label-sm text-label-sm px-2 py-0.5 rounded-full shadow-sm">
               ${s.safetyBadge}
@@ -764,7 +762,7 @@ class SlitherScopeApp {
             <div class="bg-surface-container-lowest rounded-lg p-space-sm shadow-sm flex flex-col gap-space-xs">
               <div class="flex items-start gap-space-sm">
                 <img class="w-20 h-20 rounded-DEFAULT object-cover shrink-0 bg-surface-container"
-                     src="${l.photoUrl}"
+                     src="${resolveSpeciesImage({ photoUrl: l.photoUrl, speciesId: l.speciesId, speciesList: SPECIES_DATA })}"
                      alt="${l.speciesName}"
                      onerror="this.onerror=null; this.src='${SVG_FALLBACK}';" />
                 <div class="flex flex-col flex-1 min-w-0">
@@ -833,8 +831,8 @@ class SlitherScopeApp {
     const audioBtn = document.getElementById('modal-species-audio-btn');
 
     if (img) {
-      img.src = s.imageUrl;
-      img.onerror = () => { img.src = SVG_FALLBACK; };
+      img.src = resolveSpeciesImage({ species: s });
+      img.onerror = () => { img.onerror = null; img.src = SVG_FALLBACK; };
     }
     if (badge) {
       badge.textContent = s.safetyBadge;

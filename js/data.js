@@ -34,7 +34,7 @@ export const SPECIES_DATA = [
       'Checkerboard pattern between stripes on dark body',
       'Round pupils and slender friendly face'
     ],
-    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuByVUtxIByBunqSKbbi1QnMk_--moKvCoH__Mp123ZSdxAyXNum0arkTJN33j3QlqU2a1KUk2y7J-J7HlDMUdl2F3_kXEds-P4D5gWEOQi9Bged4QEbaKSiHw7rxaQTD1TiWIqpC4_6pSQglwv08IX6gEeqMa3XuyNEkzUbXkXLtgFabezeXbmcqKY6u3HQod8JVZ19J3fohIHtfauHYA6_hISD6tN9GzquGwzad2zt2_t1IeqqxL3UuA',
+    imageUrl: 'https://static.inaturalist.org/photos/1232857/medium.jpg',
     imageAlt: 'Eastern Garter Snake with bright yellow stripe resting on a river stone'
   },
   {
@@ -67,7 +67,7 @@ export const SPECIES_DATA = [
       'Keeled belly scales shaped like bread loaf for vertical tree climbing',
       'Freezes in a crinkly, wiggly line when approached on paths'
     ],
-    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAMwhrUHi_uPkwLPrB5g6pwO02U4IRmXFjCJ8nNh_zKS2z3BeMT6mLuUdYqpN6eabZ2ecLxxgW_s1tyvK9mELCb0mpqEdxjFUX3_4go3KFLw26gC6f7hVtJhMkiy1o6QdCsQt8hdFmoC2qZIzB5ilWcpOCo-BzobImfvZe6B0z1eqCMpWCzqPu0avwfG5ADSWXL-A_2UAjusT5wJM6QS-NATNQtg1Ko47JaCqBGhZKCtqAf3dPbVtUyBg',
+    imageUrl: 'https://static.inaturalist.org/photos/2625290/medium.jpg',
     imageAlt: 'Western Rat Snake basking on limestone rocks'
   },
   {
@@ -100,7 +100,7 @@ export const SPECIES_DATA = [
       'Swims with entire body submerged or resting head on water surface',
       'Round pupils with vertical dark bars on upper lip scales'
     ],
-    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB5Fh4T3f1oKa_YZV5RPS5qvZYDCUUtD3uJ9EFZyzUZOYY-MlbqFMSzAIeNWFo3R0S8NXbX-r_W53ur4RQLaaiL7vTc7JYMmjhy6obkewViBEtywsmyjXdW7ioIDxV_lf2PhwTScKfq136x207YNyAQuz7Rd5ITQgEDIfCrggpGmrRKkEUCZvkpMR1tkDeFsbjW4x07UPUJTShuYise1zpRo6ykAnW1q6zCa7XB0UHFlIAE9XuyIjOR0Q',
+    imageUrl: 'https://static.inaturalist.org/photos/3889016/medium.jpg',
     imageAlt: 'Plain-bellied Water Snake swimming in clear creek shallows'
   },
   {
@@ -133,7 +133,7 @@ export const SPECIES_DATA = [
       'Exceptionally slender body with large expressive golden eyes',
       'Never bites; relies on incredible camouflage'
     ],
-    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCSKyhOGC5ZgqN3W4h9V0B2dFUvsqvdx8t4Cyys7z3sRYKUUQddOHc8yETSxSeO2gxFBc6stKbA7_vKvLv6Ejyi1BZEsciym0kTkvd9EBMiaq9jRZmLQbqMEJz0slTpacF9_55OrGvdznwdsNCN7ZZlOqHfeJeUDR3K_BAwOiPu_1cydM7QzikWRsyzNp04i1l7-RyiaDz9WNICUbNW_ppIoT6ENP5Y0_lozVJe0dNN08EUsU-Am9v3Yg',
+    imageUrl: 'https://static.inaturalist.org/photos/6843452/medium.jpg',
     imageAlt: 'Rough Green Snake gracefully coiled in green cedar foliage'
   },
   {
@@ -166,7 +166,7 @@ export const SPECIES_DATA = [
       'Triangular head with heat-sensing pit between eye and nostril',
       'Vertical slit cat-like pupils in bright light'
     ],
-    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBkE-cyi5guL4XunigsJav4G-BVBG99VF8schy87lQPCyBp_WpK3aZ7FWmX7tDXP7zjtLiwre5c5Nz_Y1mbkibxUmhhncVrGiQVVd-hll8RPNBttIo7otxyKrIv_VinhxzWcJcINCLk41tvYHyqKl5bg-mWQTweBc8qIQYqguzvVhN_-cGtnThai2I_U7Rbp4Fh4AnHWTqI67gth4lsU2NpeQkW55fkUc5y7HleoNsT9fCx5kJDPOmI7g',
+    imageUrl: 'https://static.inaturalist.org/photos/5432109/medium.jpg',
     imageAlt: 'Broad-banded Copperhead showing distinctive hourglass bands'
   },
   {
@@ -199,7 +199,7 @@ export const SPECIES_DATA = [
       'Smooth, glossy scales that reflect light like polished obsidian',
       'Docile behavior when observed quietly from trails'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=600&q=80',
+    imageUrl: 'https://static.inaturalist.org/photos/58632128/medium.jpeg',
     imageAlt: 'Speckled Kingsnake with glistening yellow and black markings'
   },
   {
@@ -232,7 +232,7 @@ export const SPECIES_DATA = [
       'Vibrant yellow-to-coral belly with small black dots',
       'Very gentle, small enough to fit in a teaspoon when newborn'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1548883354-7622d03aca27?auto=format&fit=crop&w=600&q=80',
+    imageUrl: 'https://static.inaturalist.org/photos/33824041/medium.jpg',
     imageAlt: 'Ring-necked Snake showing bright neck ring'
   },
   {
@@ -265,7 +265,7 @@ export const SPECIES_DATA = [
       'Dark facial mask band across the eye with a white lower stripe',
       'Angular ridge over eye gives a "stern" brow appearance'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=600&q=80',
+    imageUrl: 'https://static.inaturalist.org/photos/6234125/medium.jpg',
     imageAlt: 'Western Cottonmouth in riparian wetland habitat'
   },
   {
@@ -298,7 +298,7 @@ export const SPECIES_DATA = [
       'Blunt, rounded head that is solid black to behind the eyes',
       'Short fixed fangs and very shy temperament'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1520690214124-2405c5217036?auto=format&fit=crop&w=600&q=80',
+    imageUrl: 'https://static.inaturalist.org/photos/2458931/medium.jpg',
     imageAlt: 'Texas Coral Snake with bright red, yellow, and black banding'
   },
   {
@@ -331,7 +331,7 @@ export const SPECIES_DATA = [
       'Clean pure-white or pale blue vertical scale in front of each eye',
       'Extremely slender build compared to chunky water snakes'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=600&q=80',
+    imageUrl: 'https://static.inaturalist.org/photos/7458129/medium.jpg',
     imageAlt: 'Slender Western Ribbon Snake gliding along creek stones'
   }
 ];
@@ -509,7 +509,7 @@ export const SAMPLE_LOGS = [
     location: 'Barton Creek - Gus Fruh Trail',
     habitat: 'creek',
     notes: 'Saw it basking on a wet boulder near the water edge. Slithered smoothly into the weeds when hikers walked by!',
-    photoUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuByVUtxIByBunqSKbbi1QnMk_--moKvCoH__Mp123ZSdxAyXNum0arkTJN33j3QlqU2a1KUk2y7J-J7HlDMUdl2F3_kXEds-P4D5gWEOQi9Bged4QEbaKSiHw7rxaQTD1TiWIqpC4_6pSQglwv08IX6gEeqMa3XuyNEkzUbXkXLtgFabezeXbmcqKY6u3HQod8JVZ19J3fohIHtfauHYA6_hISD6tN9GzquGwzad2zt2_t1IeqqxL3UuA',
+    photoUrl: 'https://static.inaturalist.org/photos/1232857/medium.jpg',
     xpEarned: 50
   },
   {
@@ -520,7 +520,7 @@ export const SAMPLE_LOGS = [
     location: 'Barton Creek - Twin Falls',
     habitat: 'canopy',
     notes: 'Big beautiful rat snake curled along a low oak branch about 7 feet up. Completely calm, just resting in the shade.',
-    photoUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAMwhrUHi_uPkwLPrB5g6pwO02U4IRmXFjCJ8nNh_zKS2z3BeMT6mLuUdYqpN6eabZ2ecLxxgW_s1tyvK9mELCb0mpqEdxjFUX3_4go3KFLw26gC6f7hVtJhMkiy1o6QdCsQt8hdFmoC2qZIzB5ilWcpOCo-BzobImfvZe6B0z1eqCMpWCzqPu0avwfG5ADSWXL-A_2UAjusT5wJM6QS-NATNQtg1Ko47JaCqBGhZKCtqAf3dPbVtUyBg',
+    photoUrl: 'https://static.inaturalist.org/photos/2625290/medium.jpg',
     xpEarned: 50
   },
   {
@@ -531,7 +531,7 @@ export const SAMPLE_LOGS = [
     location: 'Sculpture Falls Path',
     habitat: 'canopy',
     notes: 'Amazing bright green color! It looked exactly like a leafy vine. It was eating a green caterpillar.',
-    photoUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCSKyhOGC5ZgqN3W4h9V0B2dFUvsqvdx8t4Cyys7z3sRYKUUQddOHc8yETSxSeO2gxFBc6stKbA7_vKvLv6Ejyi1BZEsciym0kTkvd9EBMiaq9jRZmLQbqMEJz0slTpacF9_55OrGvdznwdsNCN7ZZlOqHfeJeUDR3K_BAwOiPu_1cydM7QzikWRsyzNp04i1l7-RyiaDz9WNICUbNW_ppIoT6ENP5Y0_lozVJe0dNN08EUsU-Am9v3Yg',
+    photoUrl: 'https://static.inaturalist.org/photos/6843452/medium.jpg',
     xpEarned: 50
   }
 ];
