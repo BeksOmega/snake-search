@@ -40,7 +40,7 @@ export class SnakeMapController {
     this.currentLat = 37.424;
     this.currentLng = -122.068;
     this.currentRadiusMiles = 5;
-    this.currentPlaceName = "Google Mountain View Campus";
+    this.currentPlaceName = "Local Survey Area";
     this.map = null;
     this.radiusCircle = null;
     this.centerMarker = null;
@@ -81,12 +81,7 @@ export class SnakeMapController {
     this.map.on('click', (e) => {
       this.currentLat = e.latlng.lat;
       this.currentLng = e.latlng.lng;
-      this.currentPlaceName = `Selected Area (${this.currentLat.toFixed(3)}, ${this.currentLng.toFixed(3)})`;
-      
-      // Reset preset styling
-      document.querySelectorAll('.preset-btn').forEach(b => {
-        b.className = 'preset-btn bg-surface-container-high text-on-surface font-label-sm text-label-sm px-space-sm py-1 rounded-full whitespace-nowrap active:translate-y-0.5 transition-all flex items-center gap-1';
-      });
+      this.currentPlaceName = `Area (${this.currentLat.toFixed(3)}, ${this.currentLng.toFixed(3)})`;
 
       this.updateRadiusUI();
       this.updateMapGeometry();
@@ -132,18 +127,28 @@ export class SnakeMapController {
     }
   }
 
+  formatRadius(miles) {
+    if (miles < 1) {
+      return `${miles.toFixed(miles < 0.2 ? 2 : 1).replace(/\.?0+$/, '')} mi`;
+    }
+    if (miles % 1 === 0) {
+      return `${Math.round(miles)} mi`;
+    }
+    return `${miles.toFixed(1)} mi`;
+  }
+
   updateRadiusUI() {
     const display = document.getElementById('radius-display');
     if (display) {
-      display.textContent = `${this.currentRadiusMiles} mi`;
+      display.textContent = this.formatRadius(this.currentRadiusMiles);
     }
     const slider = document.getElementById('radius-slider');
-    if (slider && Number(slider.value) !== this.currentRadiusMiles) {
+    if (slider && Math.abs(Number(slider.value) - this.currentRadiusMiles) > 0.05) {
       slider.value = this.currentRadiusMiles;
     }
     const areaLabel = document.getElementById('census-area-label');
     if (areaLabel) {
-      areaLabel.textContent = `${this.currentPlaceName} • ${this.currentRadiusMiles}-Mile Radius`;
+      areaLabel.textContent = `${this.currentPlaceName} • ${this.formatRadius(this.currentRadiusMiles)} Radius`;
     }
   }
 
@@ -199,7 +204,15 @@ export class SnakeMapController {
       this.edgeHandle.on('drag', (e) => {
         const center = L.latLng(this.currentLat, this.currentLng);
         const distMeters = center.distanceTo(e.latlng);
-        const miles = Math.max(1, Math.min(50, Math.round(distMeters / 1609.34)));
+        const rawMiles = distMeters / 1609.34;
+        let miles;
+        if (rawMiles < 1) {
+          miles = Math.max(0.1, Math.round(rawMiles * 10) / 10);
+        } else if (rawMiles < 10) {
+          miles = Math.round(rawMiles * 10) / 10;
+        } else {
+          miles = Math.min(50, Math.round(rawMiles));
+        }
         this.currentRadiusMiles = miles;
         if (this.radiusCircle) {
           this.radiusCircle.setRadius(miles * 1609.34);
@@ -216,7 +229,11 @@ export class SnakeMapController {
   }
 
   getZoomForRadius(miles) {
-    if (miles <= 3) return 13;
+    if (miles <= 0.15) return 17;
+    if (miles <= 0.35) return 16;
+    if (miles <= 0.75) return 15;
+    if (miles <= 1.5) return 14;
+    if (miles <= 3.5) return 13;
     if (miles <= 7) return 12;
     if (miles <= 14) return 11;
     if (miles <= 28) return 10;
@@ -224,7 +241,7 @@ export class SnakeMapController {
   }
 
   setRadius(miles, triggerFetch = true) {
-    const clamped = Math.max(1, Math.min(50, Math.round(miles)));
+    const clamped = Math.max(0.1, Math.min(50, Math.round(miles * 10) / 10));
     this.currentRadiusMiles = clamped;
     this.updateRadiusUI();
     this.updateMapGeometry();
@@ -241,8 +258,12 @@ export class SnakeMapController {
 
   expandRadius() {
     let next;
-    if (this.currentRadiusMiles < 5) {
-      next = this.currentRadiusMiles + 1;
+    if (this.currentRadiusMiles < 0.5) {
+      next = this.currentRadiusMiles + 0.1;
+    } else if (this.currentRadiusMiles < 1) {
+      next = this.currentRadiusMiles + 0.25;
+    } else if (this.currentRadiusMiles < 2) {
+      next = this.currentRadiusMiles + 0.5;
     } else if (this.currentRadiusMiles < 10) {
       next = this.currentRadiusMiles + 1;
     } else if (this.currentRadiusMiles < 20) {
@@ -250,21 +271,25 @@ export class SnakeMapController {
     } else {
       next = this.currentRadiusMiles + 5;
     }
-    this.setRadius(Math.min(50, next), true);
+    const clamped = Math.min(50, Math.round(next * 100) / 100);
+    this.setRadius(clamped, true);
   }
 
   shrinkRadius() {
     let next;
-    if (this.currentRadiusMiles <= 5) {
-      next = this.currentRadiusMiles - 1;
-    } else if (this.currentRadiusMiles <= 10) {
-      next = this.currentRadiusMiles - 1;
-    } else if (this.currentRadiusMiles <= 20) {
-      next = this.currentRadiusMiles - 2;
-    } else {
+    if (this.currentRadiusMiles > 10) {
       next = this.currentRadiusMiles - 5;
+    } else if (this.currentRadiusMiles > 2) {
+      next = this.currentRadiusMiles - 1;
+    } else if (this.currentRadiusMiles > 1) {
+      next = this.currentRadiusMiles - 0.5;
+    } else if (this.currentRadiusMiles > 0.5) {
+      next = this.currentRadiusMiles - 0.25;
+    } else {
+      next = this.currentRadiusMiles - 0.1;
     }
-    this.setRadius(Math.max(1, next), true);
+    const clamped = Math.max(0.1, Math.round(next * 100) / 100);
+    this.setRadius(clamped, true);
   }
 
   jumpToPreset(lat, lng, name, radiusMiles) {
@@ -273,16 +298,6 @@ export class SnakeMapController {
     this.currentPlaceName = name;
     this.currentRadiusMiles = radiusMiles || 5;
     this.updateRadiusUI();
-
-    const buttons = document.querySelectorAll('.preset-btn');
-    buttons.forEach(b => {
-      if (b.innerText.includes(name.split(' ')[0])) {
-        b.className = 'preset-btn bg-primary-container text-on-primary font-label-sm text-label-sm px-space-sm py-1 rounded-full whitespace-nowrap shadow-[0_2px_0px_#00522d] active:translate-y-0.5 transition-all flex items-center gap-1';
-      } else {
-        b.className = 'preset-btn bg-surface-container-high text-on-surface font-label-sm text-label-sm px-space-sm py-1 rounded-full whitespace-nowrap active:translate-y-0.5 transition-all flex items-center gap-1';
-      }
-    });
-
     this.updateMapGeometry();
     this.fetchCensusData();
   }
@@ -295,14 +310,15 @@ export class SnakeMapController {
         pos => {
           this.currentLat = pos.coords.latitude;
           this.currentLng = pos.coords.longitude;
-          this.currentPlaceName = "My Current Location";
+          this.currentPlaceName = "Current Location";
           this.updateRadiusUI();
           this.updateMapGeometry();
           this.fetchCensusData();
+          if (pill) pill.innerText = "Tap map to survey";
         },
         err => {
           alert("Could not access location. Please tap a location on the map.");
-          if (pill) pill.innerText = "Tap map to move pin";
+          if (pill) pill.innerText = "Tap map to survey";
         }
       );
     } else {
@@ -311,7 +327,7 @@ export class SnakeMapController {
   }
 
   async fetchCensusData() {
-    const radiusKm = Math.round(this.currentRadiusMiles * 1.60934);
+    const radiusKm = Math.max(0.1, Math.round(this.currentRadiusMiles * 1.60934 * 100) / 100);
 
     const liveText = document.getElementById('census-live-text');
     const liveDot = document.getElementById('census-live-dot');
@@ -361,10 +377,10 @@ export class SnakeMapController {
     const speciesList = countsData.results || [];
     this.currentSpeciesData = speciesList;
 
-    if (obsData.results && obsData.results.length > 0 && !this.currentPlaceName.includes("Campus") && !this.currentPlaceName.includes("Barton") && !this.currentPlaceName.includes("Yosemite") && !this.currentPlaceName.includes("Phoenix")) {
+    if (obsData.results && obsData.results.length > 0) {
       const firstGuess = obsData.results[0].place_guess;
       if (firstGuess) {
-        this.currentPlaceName = firstGuess.split(',')[0];
+        this.currentPlaceName = firstGuess.split(',')[0].trim();
       }
     }
 
@@ -375,7 +391,7 @@ export class SnakeMapController {
     const speciesTypesCount = document.getElementById('census-species-types-count');
     const neighborsCountLabel = document.getElementById('census-neighbors-count');
 
-    if (areaLabel) areaLabel.textContent = `${this.currentPlaceName} • ${this.currentRadiusMiles}-Mile Radius`;
+    if (areaLabel) areaLabel.textContent = `${this.currentPlaceName} • ${this.formatRadius(this.currentRadiusMiles)} Radius`;
     if (titleLabel) titleLabel.textContent = `${this.currentPlaceName} Census`;
     if (speciesCountLabel) speciesCountLabel.textContent = totalSpecies;
     if (speciesTypesCount) speciesTypesCount.textContent = `${totalSpecies} Types`;
